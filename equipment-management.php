@@ -19,14 +19,20 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+define( 'EQUIPMENT_MANAGEMENT_VERSION', '1.0.0');
+define( 'EQUIPMENT_MANAGEMENT_DATABASE_VERSION', '1.0.0' );
+define( 'EQUIPMENT_MANAGEMENT_DATABASE_VERSION_OPTION', 'equipment-management-database-version' );
+
 // Load plugin class files
 require_once( 'includes/class-equipment-management.php' );
 require_once( 'includes/class-equipment-management-settings.php' );
+require_once( 'includes/class-equipment-management-database.php' );
 
 // Load plugin libraries
 require_once( 'includes/lib/class-equipment-management-admin-api.php' );
 require_once( 'includes/lib/class-equipment-management-post-type.php' );
 require_once( 'includes/lib/class-equipment-management-taxonomy.php' );
+require_once( 'includes/lib/class-equipment-management-shortcode.php' );
 
 /**
  * Returns the main instance of Equipment_Management to prevent the need to use globals.
@@ -35,7 +41,7 @@ require_once( 'includes/lib/class-equipment-management-taxonomy.php' );
  * @return object Equipment_Management
  */
 function Equipment_Management () {
-	$instance = Equipment_Management::instance( __FILE__, '1.0.0' );
+	$instance = Equipment_Management::instance( __FILE__, EQUIPMENT_MANAGEMENT_VERSION );
 
 	if ( is_null( $instance->settings ) ) {
 		$instance->settings = Equipment_Management_Settings::instance( $instance );
