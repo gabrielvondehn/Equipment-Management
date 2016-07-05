@@ -1,10 +1,5 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 if ( ! defined( 'EQUIPMENT_MANAGEMENT_VERSION' ) ) die( 'No script kiddies allowed' );
 
 class Equipment_Management_Database_API {
@@ -84,6 +79,18 @@ class Equipment_Management_Database_API {
         }
         
         return $result_structure;
+    }
+    
+    public function get_table_names() {
+        return $this->table_names;
+    }
+    
+    public function get_table_structure() {
+        return $this->table_structure;
+    }
+    
+    public function get_databse_version() {
+        return $this->database_version;
     }
     
     
