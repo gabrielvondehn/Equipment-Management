@@ -2,6 +2,8 @@
 
 if ( ! defined( 'EQUIPMENT_MANAGEMENT_VERSION' ) ) die( 'No script kiddies allowed' );
 
+require_once 'lib/class-equipment-management-database-api.php';
+
 class Equipment_Management_Database extends Equipment_Management_Database_API {
     
     public function __construct() {
@@ -15,8 +17,8 @@ class Equipment_Management_Database extends Equipment_Management_Database_API {
         super (
                 array(
                     "main_table" => ($wpdb->prefix)."equipment",
-                    "equipment_table" => ($wpdb->prefix)."equipment_use",
-                    "equipment_bundle" => ($wpdb->prefix)."equipemnt_bundle"
+                    "use_table" => ($wpdb->prefix)."equipment_use",
+                    "bundle_table" => ($wpdb->prefix)."equipemnt_bundle"
                 ),
                 $table_structure,
                 EQUIPMENT_MANAGEMENT_DATABASE_VERSION
