@@ -33,7 +33,7 @@ class Equipment_Management_Database_API {
      */
     private $database_version;
     
-    function __construct( $table_names, $table_structure, $version ) {
+    public function __construct( $table_names, $table_structure, $version ) {
         global $wpdb;
         
         foreach( $table_names as $name ) {
@@ -48,6 +48,42 @@ class Equipment_Management_Database_API {
             update_database();
         }
         
+    }
+    
+    /**
+     * Pareses a JSON string to  table struture; see table_structure.json
+     * @param type $json
+     * @return array
+     */
+    public static function parse_table_structure( $json ) {
+        $struct_obj = json_decode( $json, true, 10 );
+        
+        //var_dump($struct_obj);
+        
+        $result_structure = array();
+        
+        foreach( $struct_obj as $table => $struct ) {
+            
+            $table_struct = array();
+            
+            foreach( $struct as $col => $properties ) {
+                
+                $column = array();
+                
+                $column['name'] = $col;
+                
+                foreach( $properties as $property => $value ) {
+                    
+                    $column[$property] = $value;
+                }
+                
+                array_push( $table_struct, $column );
+            }
+            
+            $result_structure[$table] = $table_struct;
+        }
+        
+        return $result_structure;
     }
     
     
@@ -71,7 +107,7 @@ class Equipment_Management_Database_API {
         
         $uqpk = null; // The Unique Primary Key.
                 
-        foreach( $columns as $column) {
+        foreach( $columns as $column ) {
             $sql.= $column['name']." ";
             $sql.= $column['type']." ";
             
