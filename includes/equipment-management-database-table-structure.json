@@ -1,0 +1,240 @@
+{
+    "main_table" : {
+        "equip_id" : {
+            "type"    : "int",
+            "nn"      : true,
+            "uq pk"   : true,
+            "ai"      : false,
+            "un"      : true,
+            "default" : null
+        },
+        "post_id" : {
+            "type"    : "bigint(20)",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : true,
+            "default" : "0"
+        },
+        "date_added" : {
+            "type"    : "datetime",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : false,
+            "default" : "CURRENT TIME"
+        },
+        "equip_name" : {
+            "type"    : "mediumtext",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : false,
+            "default" : null
+        },
+        "equip_category" : {
+            "type"    : "mediumtext",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : false,
+            "default" : "''"
+        },
+        "equip_category_tags" : {
+            "type"    : "mediumtext",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : false,
+            "default" : "''"
+        },
+        "equip_specification" : {
+            "type"    : "mediumtext",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : false,
+            "default" : "''"
+        },
+        "equip_application" : {
+            "type"    : "mediumtext",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : false,
+            "default" : "''"
+        },
+        "equip_notes" : {
+            "type"    : "mediumtext",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : false,
+            "default" : "''"
+        },
+        "equip_price" : {
+            "type"    : "double",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : true,
+            "default" : null
+        },
+        "date_bought" : {
+            "type"    : "datetime",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : false,
+            "default" : "1000-01-01 00:00:00"
+        },
+        "bought_note" : {
+            "type"    : "mediumtext",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : false,
+            "default" : "''"
+        },
+        "equip_vendor" : {
+            "type"    : "mediumtext",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : false,
+            "default" : "''"
+        },
+        "vendor_item_id" : {
+            "type"    : "bigint(20)",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : true,
+            "default" : null
+        },
+        "bundle" : {
+            "type"    : "mediumtext",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : false,
+            "default" : "''"
+        },
+        "equip_amount" : {
+            "type"    : "int",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : true,
+            "default" : "1"
+        }
+    },
+    "use_table" : {
+        "ID" : {
+            "type"    : "bigint(20)",
+            "nn"      : true,
+            "uq pk"   : true,
+            "ai"      : true,
+            "un"      : true,
+            "default" : null
+        },
+        "equip_id" : {
+            "type"    : "int",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : true,
+            "default" : null
+        },
+        "used_by" : {
+            "type"    : "mediumtext",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : false,
+            "default" : null
+        },
+        "amount_used" : {
+            "type"    : "int",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : true,
+            "default" : null
+        },
+        "date_used" : {
+            "type"    : "datetime",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : false,
+            "default" : null
+        },
+        "date_back" : {
+            "type"    : "datetime",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : false,
+            "default" : "'1000-01-01 00:00:00'"
+        },
+        "usage_type" : {
+            "type"    : "varchar(45)",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : false,
+            "default" : "'lend'"
+        }
+    },
+    "bundle_table" : {
+        "ID" : {
+            "type"    : "bigint(10)",
+            "nn"      : true,
+            "uq pk"   : true,
+            "ai"      : true,
+            "un"      : true,
+            "default" : null
+        },
+        "name" : {
+            "type"    : "mediumtext",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : false,
+            "default" : null
+        },
+        "taxonomy" : {
+            "type"    : "mediumtext",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : false,
+            "default" : null
+        },
+        "description" : {
+            "type"    : "mediumtext",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : false,
+            "default" : null
+        },
+        "vendor" : {
+            "type"    : "mediumtext",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : false,
+            "default" : null
+        },
+        "price" : {
+            "type"    : "double",
+            "nn"      : true,
+            "uq pk"   : false,
+            "ai"      : false,
+            "un"      : true,
+            "default" : null
+        }
+    }
+}
