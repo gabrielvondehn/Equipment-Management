@@ -1,6 +1,6 @@
 {
     "main_table" : {
-        "main_equip" : {
+        "equip_id" : {
             "type"    : "int",
             "nn"      : true,
             "uq pk"   : true,
@@ -8,7 +8,7 @@
             "un"      : true,
             "default" : null
         },
-        {
+        "post_id" : {
             "..."     : "..."
         }
     },
