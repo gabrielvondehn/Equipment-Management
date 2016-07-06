@@ -22,7 +22,7 @@
             "uq pk"   : false,
             "ai"      : false,
             "un"      : false,
-            "default" : "CURRENT TIME"
+            "default" : "CURRENT_TIMESTAMP"
         },
         "equip_name" : {
             "type"    : "mediumtext",
@@ -86,7 +86,7 @@
             "uq pk"   : false,
             "ai"      : false,
             "un"      : false,
-            "default" : "1000-01-01 00:00:00"
+            "default" : "'1000-01-01 00:00:00'"
         },
         "bought_note" : {
             "type"    : "mediumtext",
