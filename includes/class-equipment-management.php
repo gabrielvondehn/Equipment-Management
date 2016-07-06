@@ -19,6 +19,14 @@ class Equipment_Management {
 	 * @since   1.0.0
 	 */
 	public $settings = null;
+        
+        /**
+         * Database class object
+         * @var     object
+         * @access  public
+         * @since   1.0.0
+         */
+        public $database = null;
 
 	/**
 	 * The version number.
@@ -104,6 +112,9 @@ class Equipment_Management {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 10, 1 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_styles' ), 10, 1 );
 
+                // Load the database
+                $this->database = new Equipment_Management_Database();
+                
 		// Load API for generic admin functions
 		if ( is_admin() ) {
 			$this->admin = new Equipment_Management_Admin_API();
