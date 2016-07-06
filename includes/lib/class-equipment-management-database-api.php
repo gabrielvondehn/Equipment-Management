@@ -28,6 +28,12 @@ class Equipment_Management_Database_API {
      */
     private $database_version;
     
+    /**
+     * Constructs the object. $table_structure must have the names already prefixed
+     * @param array $table_names
+     * @param array $table_structure
+     * @param string $version
+     */
     public function __construct( $table_names, $table_structure, $version ) {
         global $wpdb;
         
