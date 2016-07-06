@@ -23,17 +23,18 @@ define( 'EQUIPMENT_MANAGEMENT_VERSION', '1.0.0');
 define( 'EQUIPMENT_MANAGEMENT_DATABASE_VERSION', '1.0.0' );
 define( 'EQUIPMENT_MANAGEMENT_DATABASE_VERSION_OPTION', 'equipment-management-database-version' );
 
-// Load plugin class files
-require_once( 'includes/class-equipment-management.php' );
-require_once( 'includes/class-equipment-management-settings.php' );
-require_once( 'includes/class-equipment-management-database.php' );
-
 // Load plugin libraries
 require_once( 'includes/lib/class-equipment-management-admin-api.php' );
 require_once( 'includes/lib/class-equipment-management-database-api.php' );
 require_once( 'includes/lib/class-equipment-management-post-type.php' );
 require_once( 'includes/lib/class-equipment-management-taxonomy.php' );
 require_once( 'includes/lib/class-equipment-management-shortcode.php' );
+
+// Load plugin class files
+require_once( 'includes/class-equipment-management.php' );
+require_once( 'includes/class-equipment-management-settings.php' );
+require_once( 'includes/class-equipment-management-database.php' );
+
 
 /**
  * Returns the main instance of Equipment_Management to prevent the need to use globals.
@@ -47,7 +48,7 @@ function Equipment_Management () {
 	if ( is_null( $instance->settings ) ) {
 		$instance->settings = Equipment_Management_Settings::instance( $instance );
 	}
-
+        
 	return $instance;
 }
 
