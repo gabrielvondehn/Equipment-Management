@@ -31,6 +31,8 @@ class Equipment_Management_Database_API {
     public function __construct( $table_names, $table_structure, $version ) {
         global $wpdb;
         
+        $this->table_names = array();
+        
         foreach( $table_names as $name ) {
             array_push($this->table_names, ($wpdb->prefix).$name);
         }
@@ -40,7 +42,7 @@ class Equipment_Management_Database_API {
         
         // If the database is outdated, perform an update
         if( $this->version != get_option(EQUIPMENT_MANAGEMENT_DATABASE_VERSION_OPTION) ) {
-            update_database();
+            $this->update_database();
         }
         
     }
@@ -100,7 +102,7 @@ class Equipment_Management_Database_API {
         
         foreach( $this->table_names as $slug => $name ) {
             
-            dbDelta( generate_SQL_from_table_structure( $slug ) );
+            dbDelta( $this->generate_SQL_from_table_structure( $slug ) );
         }
         
         update_option( EQUIPMENT_MANAGEMENT_DATABASE_VERSION_OPTION, EQUIPMENT_MANAGEMENT_DATABASE_VERSION );
@@ -112,7 +114,7 @@ class Equipment_Management_Database_API {
      * @param string $table Slug of the desired table SQL
      * @return string The SQL for that table.
      */
-    private function generate_SQL_from_table_structure( $table ) {
+    public static function generate_SQL_from_table_structure( $table ) {
         
         global $wpdb;
         
@@ -123,39 +125,40 @@ class Equipment_Management_Database_API {
         $uqpk = null; // The Unique Primary Key.
                 
         foreach( $columns as $column ) {
-            $sql.= $column['name']." ";
-            $sql.= $column['type']." ";
+            $sql = $sql.$column['name']." ";
+            $sql = $sql.$column['type']." ";
             
             if ($column['uq pk'] == true) {
                 $uqpk = $column;
             }
 
             if ($column['un'] == true) {
-                $sql.="UNSIGNED ";
+                $sql = $sql."UNSIGNED ";
             }
 
             if ($column['nn'] == true) {
-                $sql.= "NOT NULL ";
+                $sql = $sql."NOT NULL ";
             }
 
             if ($column['ai'] == true) {
-                $sql.= "AUTO_INCREMENT ";
+                $sql = $sql."AUTO_INCREMENT ";
             }
 
             if ($column['default'] != null) {
-                $sql.= "DEFAULT ".$column['default'];
+                $sql = $sql."DEFAULT ".$column['default'];
             }
             
-            $sql.= ",\n";
+            $sql = $sql.",\n";
         }
         
         if( $uqpk != null ) {
-            $sql.= "PRIMARY KEY (".$column['type']."),";
-            $sql.= "UNIQUE KEY ".$column['type']." (".$column['type'].")";
+            $sql = $sql."PRIMARY KEY (".$column['name']."),\n";
+            $sql = $sql."UNIQUE KEY ".$column['name']." (".$column['name'].")";
         }
         
-        $sql.= ") ";
-        $sql.= $wpdb->get_charset_collate();
+        $sql = $sql.") ";
+        $sql = $sql.$wpdb->get_charset_collate().";";
+        
         return $sql;
     }
 }
