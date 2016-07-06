@@ -95,7 +95,6 @@ class Equipment_Management_Database_API {
     
     
     private function update_database() {
-        echo 'called';
         
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         
