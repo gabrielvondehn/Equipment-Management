@@ -2,7 +2,6 @@
 
 if ( ! defined( 'EQUIPMENT_MANAGEMENT_VERSION' ) ) die( 'No script kiddies allowed' );
 
-require_once 'lib/class-equipment-management-database-api.php';
 
 class Equipment_Management_Database extends Equipment_Management_Database_API {
     
