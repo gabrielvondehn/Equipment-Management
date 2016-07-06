@@ -50,73 +50,12 @@ class Equipment_Management_Database_API {
     }
     
     /**
-     * Pareses a JSON string to  table struture; see table_structure.json
-     * @param type $json
-     * @return array
-     */
-    public static function parse_table_structure( $json ) {
-        $struct_obj = json_decode( $json, true, 10 );
-        
-        //var_dump($struct_obj);
-        
-        $result_structure = array();
-        
-        foreach( $struct_obj as $table => $struct ) {
-            
-            $table_struct = array();
-            
-            foreach( $struct as $col => $properties ) {
-                
-                $column = array();
-                
-                $column['name'] = $col;
-                
-                foreach( $properties as $property => $value ) {
-                    
-                    $column[$property] = $value;
-                }
-                
-                array_push( $table_struct, $column );
-            }
-            
-            $result_structure[$table] = $table_struct;
-        }
-        
-        return $result_structure;
-    }
-    
-    public function get_table_names() {
-        return $this->table_names;
-    }
-    
-    public function get_table_structure() {
-        return $this->table_structure;
-    }
-    
-    public function get_databse_version() {
-        return $this->database_version;
-    }
-    
-    
-    private function update_database() {
-        
-        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-        
-        foreach( $this->table_names as $slug => $name ) {
-            
-            dbDelta( $this->generate_SQL_from_table_structure( $slug ) );
-        }
-        
-        update_option( EQUIPMENT_MANAGEMENT_DATABASE_VERSION_OPTION, EQUIPMENT_MANAGEMENT_DATABASE_VERSION );
-    }
-    
-    /**
      * Generates SQL for a given table using the $this->table_structure
      * 
      * @param string $table Slug of the desired table SQL
      * @return string The SQL for that table.
      */
-    public function generate_SQL_from_table_structure( $table_slug ) {
+    private function generate_SQL_from_table_structure( $table_slug ) {
         
         global $wpdb;
         
@@ -163,4 +102,69 @@ class Equipment_Management_Database_API {
         
         return $sql;
     }
+    
+    
+    
+    
+    private function update_database() {
+        
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        
+        foreach( $this->table_names as $slug => $name ) {
+            
+            dbDelta( $this->generate_SQL_from_table_structure( $slug ) );
+        }
+        
+        update_option( EQUIPMENT_MANAGEMENT_DATABASE_VERSION_OPTION, EQUIPMENT_MANAGEMENT_DATABASE_VERSION );
+    }
+    
+    public function get_table_names() {
+        return $this->table_names;
+    }
+    
+    public function get_table_structure() {
+        return $this->table_structure;
+    }
+    
+    public function get_databse_version() {
+        return $this->database_version;
+    }
+    
+    /**
+     * Pareses a JSON string to  table struture; see table_structure.json
+     * @param type $json
+     * @return array
+     */
+    public static function parse_table_structure( $json ) {
+        $struct_obj = json_decode( $json, true, 10 );
+        
+        //var_dump($struct_obj);
+        
+        $result_structure = array();
+        
+        foreach( $struct_obj as $table => $struct ) {
+            
+            $table_struct = array();
+            
+            foreach( $struct as $col => $properties ) {
+                
+                $column = array();
+                
+                $column['name'] = $col;
+                
+                foreach( $properties as $property => $value ) {
+                    
+                    $column[$property] = $value;
+                }
+                
+                array_push( $table_struct, $column );
+            }
+            
+            $result_structure[$table] = $table_struct;
+        }
+        
+        return $result_structure;
+    }
+    
+    
 }
