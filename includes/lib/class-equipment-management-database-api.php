@@ -31,17 +31,13 @@ class Equipment_Management_Database_API {
     public function __construct( $table_names, $table_structure, $version ) {
         global $wpdb;
         
-        $this->table_names = array();
-        
-        foreach( $table_names as $name ) {
-            array_push($this->table_names, ($wpdb->prefix).$name);
-        }
+        $this->table_names = $table_names;
         
         $this->table_structure = $table_structure;
         $this->version = $version;
         
         // If the database is outdated, perform an update
-        if( $this->version != get_option(EQUIPMENT_MANAGEMENT_DATABASE_VERSION_OPTION) ) {
+        if( $this->version != get_option( EQUIPMENT_MANAGEMENT_DATABASE_VERSION_OPTION ) ) {
             $this->update_database();
         }
         
@@ -114,13 +110,13 @@ class Equipment_Management_Database_API {
      * @param string $table Slug of the desired table SQL
      * @return string The SQL for that table.
      */
-    public static function generate_SQL_from_table_structure( $table ) {
+    public function generate_SQL_from_table_structure( $table_slug ) {
         
         global $wpdb;
         
-        $sql = "CREATE TABLE ".$this->table_names[ $table ]." (\n";
+        $sql = "CREATE TABLE ".$this->table_names[ $table_slug ]." (\n";
         
-        $columns = $this->table_structure[ $table ];
+        $columns = $this->table_structure[ $table_slug ];
         
         $uqpk = null; // The Unique Primary Key.
                 
@@ -152,8 +148,8 @@ class Equipment_Management_Database_API {
         }
         
         if( $uqpk != null ) {
-            $sql = $sql."PRIMARY KEY (".$column['name']."),\n";
-            $sql = $sql."UNIQUE KEY ".$column['name']." (".$column['name'].")";
+            $sql = $sql."PRIMARY KEY (".$uqpk['name']."),\n";
+            $sql = $sql."UNIQUE KEY ".$uqpk['name']." (".$uqpk['name'].")";
         }
         
         $sql = $sql.") ";
