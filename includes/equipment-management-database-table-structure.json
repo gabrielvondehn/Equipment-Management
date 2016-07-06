@@ -38,7 +38,7 @@
             "uq pk"   : false,
             "ai"      : false,
             "un"      : false,
-            "default" : "''"
+            "default" : null
         },
         "equip_category_tags" : {
             "type"    : "mediumtext",
@@ -46,7 +46,7 @@
             "uq pk"   : false,
             "ai"      : false,
             "un"      : false,
-            "default" : "''"
+            "default" : null
         },
         "equip_specification" : {
             "type"    : "mediumtext",
@@ -54,7 +54,7 @@
             "uq pk"   : false,
             "ai"      : false,
             "un"      : false,
-            "default" : "''"
+            "default" : null
         },
         "equip_application" : {
             "type"    : "mediumtext",
@@ -62,7 +62,7 @@
             "uq pk"   : false,
             "ai"      : false,
             "un"      : false,
-            "default" : "''"
+            "default" : null
         },
         "equip_notes" : {
             "type"    : "mediumtext",
@@ -70,7 +70,7 @@
             "uq pk"   : false,
             "ai"      : false,
             "un"      : false,
-            "default" : "''"
+            "default" : null
         },
         "equip_price" : {
             "type"    : "double",
@@ -94,7 +94,7 @@
             "uq pk"   : false,
             "ai"      : false,
             "un"      : false,
-            "default" : "''"
+            "default" : null
         },
         "equip_vendor" : {
             "type"    : "mediumtext",
@@ -102,7 +102,7 @@
             "uq pk"   : false,
             "ai"      : false,
             "un"      : false,
-            "default" : "''"
+            "default" : null
         },
         "vendor_item_id" : {
             "type"    : "bigint(20)",
@@ -118,7 +118,7 @@
             "uq pk"   : false,
             "ai"      : false,
             "un"      : false,
-            "default" : "''"
+            "default" : null
         },
         "equip_amount" : {
             "type"    : "int",
