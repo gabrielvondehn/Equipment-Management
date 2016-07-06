@@ -30,6 +30,7 @@ require_once( 'includes/class-equipment-management-database.php' );
 
 // Load plugin libraries
 require_once( 'includes/lib/class-equipment-management-admin-api.php' );
+require_once( 'includes/lib/class-equipment-management-database-api.php' );
 require_once( 'includes/lib/class-equipment-management-post-type.php' );
 require_once( 'includes/lib/class-equipment-management-taxonomy.php' );
 require_once( 'includes/lib/class-equipment-management-shortcode.php' );
