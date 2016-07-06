@@ -95,7 +95,16 @@ class Equipment_Management_Database_API {
     
     
     private function update_database() {
+        echo 'called';
         
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        
+        foreach( $this->table_names as $slug => $name ) {
+            
+            dbDelta( generate_SQL_from_table_structure( $slug ) );
+        }
+        
+        update_option( EQUIPMENT_MANAGEMENT_DATABASE_VERSION_OPTION, EQUIPMENT_MANAGEMENT_DATABASE_VERSION );
     }
     
     /**
