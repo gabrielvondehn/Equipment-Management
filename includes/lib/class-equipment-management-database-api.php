@@ -103,9 +103,6 @@ class Equipment_Management_Database_API {
         return $sql;
     }
     
-    
-    
-    
     private function update_database() {
         
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -117,6 +114,8 @@ class Equipment_Management_Database_API {
         
         update_option( EQUIPMENT_MANAGEMENT_DATABASE_VERSION_OPTION, EQUIPMENT_MANAGEMENT_DATABASE_VERSION );
     }
+    
+    // class variable setters  and getters
     
     public function get_table_names() {
         return $this->table_names;
@@ -137,8 +136,6 @@ class Equipment_Management_Database_API {
      */
     public static function parse_table_structure( $json ) {
         $struct_obj = json_decode( $json, true, 10 );
-        
-        //var_dump($struct_obj);
         
         $result_structure = array();
         
