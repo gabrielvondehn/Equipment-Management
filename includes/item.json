@@ -1,0 +1,36 @@
+{
+    "id": 1,
+    "post" : 1,
+    "date_added" : 123456,
+    "name" : "Bla",
+    "category" : "cat",
+    "category_tags" : "a, b, c",
+    "specification" : "toll",
+    "aaplication" : "testing",
+    "notes" : "No",
+    "price" : 7.00,
+    "date_bought" : 654321,
+    "bought_note" : "no",
+    "vendor" : "Thomann",
+    "vendor_item_id" : 2,
+    "bundle" : "hklsda",
+    "amount" : 5,
+    "use" : [
+        {
+            "ID": 4,
+            "used_by" : "Gabriel",
+            "amount_used" : 4,
+            "date_used" : 54325,
+            "date_back" : 54325,
+            "usage_type" : "lend"
+        },
+        {
+            "ID": 7,
+            "used_by" : "Gabriel",
+            "amount_used" : 4,
+            "date_used" : 54325,
+            "date_back" : 54325,
+            "usage_type" : "lend"
+        }
+    ]
+}
