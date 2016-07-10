@@ -6,6 +6,7 @@ if ( ! defined( 'EQUIPMENT_MANAGEMENT_VERSION' ) ) die( 'No script kiddies allow
 class Equipment_Management_Database extends Equipment_Management_Database_API {
     
     public function __construct() {
+        
         global $wpdb;
         
         $table_structure_json = file_get_contents(plugin_dir_url( __FILE__ ) . 
