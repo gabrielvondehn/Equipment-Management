@@ -10,7 +10,7 @@ class Equipment_Management_Database_API {
      * @access  private
      * @since 	1.0.0
      */
-    private $table_names;
+    public $table_names;
     
     /**
      * An assoziative array of the table name slugs to the table structure.
@@ -18,7 +18,7 @@ class Equipment_Management_Database_API {
      * @access private
      * @since 1.0.0
      */
-    private $table_structure;
+    public $table_structure;
     
     /**
      * The version of the database.
@@ -26,7 +26,7 @@ class Equipment_Management_Database_API {
      * @access  private
      * @since   1.0.0
      */
-    private $database_version;
+    public $database_version;
     
     /**
      * Constructs the object. $table_structure must have the names already prefixed
@@ -113,20 +113,6 @@ class Equipment_Management_Database_API {
         }
         
         update_option( EQUIPMENT_MANAGEMENT_DATABASE_VERSION_OPTION, EQUIPMENT_MANAGEMENT_DATABASE_VERSION );
-    }
-    
-    // class variable setters  and getters
-    
-    public function get_table_names() {
-        return $this->table_names;
-    }
-    
-    public function get_table_structure() {
-        return $this->table_structure;
-    }
-    
-    public function get_databse_version() {
-        return $this->database_version;
     }
     
     /**
