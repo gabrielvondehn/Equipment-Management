@@ -49,6 +49,9 @@ function Equipment_Management () {
 		$instance->settings = Equipment_Management_Settings::instance( $instance );
 	}
         
+        global $equipment_management;
+        $equipment_management = $instance;
+        
 	return $instance;
 }
 
