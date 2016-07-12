@@ -34,6 +34,7 @@ require_once( 'includes/lib/class-equipment-management-shortcode.php' );
 require_once( 'includes/class-equipment-management.php' );
 require_once( 'includes/class-equipment-management-settings.php' );
 require_once( 'includes/class-equipment-management-database.php' );
+require_once( 'includes/class-equipment-management-security.php' );
 
 
 /**

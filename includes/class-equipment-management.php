@@ -27,6 +27,14 @@ class Equipment_Management {
          * @since   1.0.0
          */
         public $database = null;
+        
+        /**
+         *
+         * @var     object
+         * @access  public
+         * @since   1.0.0 
+         */
+        public $security = null;
 
 	/**
 	 * The version number.
@@ -114,6 +122,9 @@ class Equipment_Management {
 
                 // Load the database
                 $this->database = new Equipment_Management_Database();
+                
+                //Load the security
+                $this->security = new Equipment_Management_Security();
                 
 		// Load API for generic admin functions
 		if ( is_admin() ) {
