@@ -53,7 +53,7 @@ class Equipment_Management_Security {
     
     public function current_user_can( $cap ) {
         
-        if( $this->capabilities[$cap] === "" ) {
+        if( $this->public_caps[$cap] === "public" ) {
             return true;
         } else {
             return is_user_logged_in() && current_user_can( $cap );
