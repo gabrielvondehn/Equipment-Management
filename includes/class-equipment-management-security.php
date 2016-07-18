@@ -2,14 +2,14 @@
 
 class Equipment_Management_Security {
     
-    private $capabilities;
+    private $public_caps;
     
     public function __construct() {
-        $this->setup_abilities();
+        $this->setup_capabilities();
     }
     
-    public function setup_abilities() {
-        $opn_capabilities = get_option( 'equipment_managment_capabilities' );
+    public function setup_capabilities() {
+        $opn_capabilities = get_option( 'equipment_managment_public_capabilities' );
         
         if($opn_capabilities == false) {
             $this->set_default_capabilities();
@@ -27,45 +27,27 @@ class Equipment_Management_Security {
      * @param boolean $sync Whether or not to sync the new abilities to the database
      */
     public function set_default_capabilities( $sync = true ) {
-        $this->capabilities = array (
-            "view_id"                   => "",
-            "view_post_id"              => "administrator",
-            "view_date_added"           => "administrator",
-            "view_equip_name"           => "",
-            "view_equip_category"       => "subscriber,editor,contributor,administrator",
-            "view_equip_category_tags"  => "subscriber,editor,contributor,administrator",
-            "view_equip_specitication"  => "subscriber,editor,contributor,administrator",
-            "view_equip_application"    => "subscriber,editor,contributor,administrator",
-            "view_equip_notes"          => "subscriber,editor,contributor,administrator",
-            "view_equip_price"          => "editor,contributor,administrator",
-            "view_date_bought"          => "editor,contributor,administrator",
-            "view_bought_note"          => "editor,contributor,administrator",
-            "view_equip_vendor"         => "",
-            "view_vendor_item_id"       => "",
-            "view_bundle"               => "editor,contributor,administrator",
-            "view_equip_amount"         => "subscriber,editor,contributor,administrator",
-            "view_equip_in_use"         => "subscriber,editor,contributor,administrator",
-            "view_equip_history"        => "editor,contributor,administrator",
-            "add_equip"                 => "administrator",
-            "edit_equip"                => "administrator",
-            "delete_equip"              => "administrator",
-            "add_history"               => "contributor,administrator",
-            "edit_history"              => "administrator",
-            "delete_history"            => "administrator",
-        );
+        $this->public_caps = array();
         
-        foreach( $this->capabilities as $cap => $roles ) {
-            if( $roles !== "" ) {
-                $roles = explode(",", $roles );
-                foreach( $roles as $role ) {
-                    $wp_role = get_role( $role );
-                    $wp_role->add_cap( $cap );
+        $default_capabilities_json = file_get_contents( plugin_dir_url( __FILE__ ) . 
+                "/equipment-management-default-capabilities.json" );
+        
+        $default_capabilities = json_decode($default_capabilities_json, true, 10);
+        
+        foreach( $default_capabilities as $cap => $roles ) {
+            $roles = explode(",", $roles );
+            foreach( $roles as $role ) {
+                if( $role === "public" ) {
+                    array_push($this->public_caps, $cap);
+                    continue;
                 }
+                $wp_role = get_role( $role );
+                $wp_role->add_cap( $cap );
             }
         }
         
         if( $sync ) {
-            update_option( "equipment_managment_capabilities", $this->capabilities );
+            update_option( "equipment_managment_public_capabilities", $this->public_caps );
         }
     }
     

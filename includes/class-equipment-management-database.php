@@ -9,7 +9,7 @@ class Equipment_Management_Database extends Equipment_Management_Database_API {
         
         global $wpdb;
         
-        $table_structure_json = file_get_contents(plugin_dir_url( __FILE__ ) . 
+        $table_structure_json = file_get_contents( plugin_dir_url( __FILE__ ) . 
                 "/equipment-management-database-table-structure.json" );
         
         $table_structure = Equipment_Management_Database_API::parse_table_structure($table_structure_json);
