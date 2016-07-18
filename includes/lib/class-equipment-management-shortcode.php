@@ -49,12 +49,14 @@ class Equipment_Management_Shortcode {
 	 */
 	public function run_shortcode ( $atts, $content = '' ) {
                 
+            if( !empty($atts) ) {
 		$atts = shortcode_atts( 
                         $this->pairs,
                         $this->atts,
                         $this->shortcode);
-                
-                call_user_func($this->callback, $atts, $content);
+            }
+            
+            return call_user_func($this->callback, $atts, $content);
 	}
 
 }

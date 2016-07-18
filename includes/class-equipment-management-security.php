@@ -2,7 +2,7 @@
 
 class Equipment_Management_Security {
     
-    private $public_caps;
+    public $public_caps;
     
     public function __construct() {
         $this->setup_capabilities();
@@ -12,9 +12,10 @@ class Equipment_Management_Security {
         $opn_capabilities = get_option( 'equipment_managment_public_capabilities' );
         
         if($opn_capabilities == false) {
+            echo "opn_caps was false";
             $this->set_default_capabilities();
         } else {
-            $this->capabilities = $opn_capabilities;
+            $this->public_caps = $opn_capabilities;
         }
     }
     
@@ -47,13 +48,13 @@ class Equipment_Management_Security {
         }
         
         if( $sync ) {
-            update_option( "equipment_managment_public_capabilities", $this->public_caps );
+            update_option( 'equipment_managment_public_capabilities', $this->public_caps );
         }
     }
     
     public function current_user_can( $cap ) {
         
-        if( $this->public_caps[$cap] === "public" ) {
+        if( !empty($this->public_caps[$cap]) && $this->public_caps[$cap] === "public" ) {
             return true;
         } else {
             return is_user_logged_in() && current_user_can( $cap );
