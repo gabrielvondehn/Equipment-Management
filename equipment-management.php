@@ -20,7 +20,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 define( 'EQUIPMENT_MANAGEMENT_VERSION', '1.0.0');
-define( 'EQUIPMENT_MANAGEMENT_DATABASE_VERSION', '1.0.0' );
+define( 'EQUIPMENT_MANAGEMENT_DATABASE_VERSION', '1.0.4' );
 define( 'EQUIPMENT_MANAGEMENT_DATABASE_VERSION_OPTION', 'equipment-management-database-version' );
 
 // Load plugin libraries
@@ -35,6 +35,9 @@ require_once( 'includes/class-equipment-management.php' );
 require_once( 'includes/class-equipment-management-settings.php' );
 require_once( 'includes/class-equipment-management-database.php' );
 require_once( 'includes/class-equipment-management-security.php' );
+require_once( 'includes/class-equipment-management-item.php' );
+require_once( 'includes/class-equipment-management-item-history.php' );
+require_once( 'includes/shortcodes/class-equipment-management-shortcodes.php' );
 
 
 /**
