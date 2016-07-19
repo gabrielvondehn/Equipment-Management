@@ -52,7 +52,7 @@ class Equipment_Management_Shortcode {
             if( !empty($atts) ) {
 		$atts = shortcode_atts( 
                         $this->pairs,
-                        $this->atts,
+                        $atts,
                         $this->shortcode);
             }
             
