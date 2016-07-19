@@ -18,7 +18,7 @@ class Equipment_Management_Database extends Equipment_Management_Database_API {
                 array(
                     "main_table" => ($wpdb->prefix)."equipment",
                     "use_table" => ($wpdb->prefix)."equipment_use",
-                    "bundle_table" => ($wpdb->prefix)."equipemnt_bundle"
+                    "bundle_table" => ($wpdb->prefix)."equipment_bundle"
                 ),
                 $table_structure,
                 EQUIPMENT_MANAGEMENT_DATABASE_VERSION
