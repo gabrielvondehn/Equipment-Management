@@ -67,6 +67,11 @@ class Equipment_Management {
 	 * @since   1.0.0
 	 */
 	public $dir;
+        
+        /**
+         * 
+         */
+        public $shortcodes;
 
 	/**
 	 * The plugin assets directory.
@@ -125,6 +130,8 @@ class Equipment_Management {
                 
                 //Load the security
                 $this->security = new Equipment_Management_Security();
+                
+                $this->shortcodes = new Equipment_Management_Shortcodes();
                 
 		// Load API for generic admin functions
 		if ( is_admin() ) {
