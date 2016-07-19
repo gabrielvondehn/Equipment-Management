@@ -1,6 +1,6 @@
 {
     "main_table" : {
-        "equip_id" : {
+        "id" : {
             "type"    : "int",
             "nn"      : true,
             "uq pk"   : true,
@@ -24,7 +24,7 @@
             "un"      : false,
             "default" : "CURRENT_TIMESTAMP"
         },
-        "equip_name" : {
+        "name" : {
             "type"    : "mediumtext",
             "nn"      : true,
             "uq pk"   : false,
@@ -32,7 +32,7 @@
             "un"      : false,
             "default" : null
         },
-        "equip_category" : {
+        "category" : {
             "type"    : "mediumtext",
             "nn"      : true,
             "uq pk"   : false,
@@ -40,7 +40,7 @@
             "un"      : false,
             "default" : null
         },
-        "equip_category_tags" : {
+        "category_tags" : {
             "type"    : "mediumtext",
             "nn"      : true,
             "uq pk"   : false,
@@ -48,7 +48,7 @@
             "un"      : false,
             "default" : null
         },
-        "equip_specification" : {
+        "specification" : {
             "type"    : "mediumtext",
             "nn"      : true,
             "uq pk"   : false,
@@ -56,7 +56,7 @@
             "un"      : false,
             "default" : null
         },
-        "equip_application" : {
+        "application" : {
             "type"    : "mediumtext",
             "nn"      : true,
             "uq pk"   : false,
@@ -64,7 +64,7 @@
             "un"      : false,
             "default" : null
         },
-        "equip_notes" : {
+        "notes" : {
             "type"    : "mediumtext",
             "nn"      : true,
             "uq pk"   : false,
@@ -72,7 +72,7 @@
             "un"      : false,
             "default" : null
         },
-        "equip_price" : {
+        "price" : {
             "type"    : "double",
             "nn"      : true,
             "uq pk"   : false,
@@ -96,7 +96,7 @@
             "un"      : false,
             "default" : null
         },
-        "equip_vendor" : {
+        "vendor" : {
             "type"    : "mediumtext",
             "nn"      : true,
             "uq pk"   : false,
@@ -120,7 +120,7 @@
             "un"      : false,
             "default" : null
         },
-        "equip_amount" : {
+        "amount" : {
             "type"    : "int",
             "nn"      : true,
             "uq pk"   : false,
