@@ -42,7 +42,7 @@ class Equipment_Management_Item {
         
         $table_name = $equipment_management->database->table_names['main_table'];
         $id = $this->attrs['equip_id'];
-        if( $wpdb->get_row("SELECT * FROM $table_name WHERE 'equip_id=$id'") ) { // New entry
+        if( null == $wpdb->get_row("SELECT * FROM $table_name WHERE 'id=$id'") ) { // New entry
             $wpdb->insert( $table_name,
                 array(
                     'id'             => $this->attrs['id'],
@@ -86,5 +86,32 @@ class Equipment_Management_Item {
         }
         
         $this->attrs['use']->sync();
+    }
+    
+    public static function create_item( $id ) {
+        global $equipment_management;
+        global $wpdb;
+        
+        $main_table_name = $equipment_management->database->table_names['main_table'];
+        
+        $row = $wpdb->get_row("SELECT * FROM $main_table_name WHERE id=$id", ARRAY_A);
+        if($row == null) {
+            return false;
+        }
+        
+        $use_table_name = $equipment_management->database->table_names['use_table'];
+        
+        $use_rows = array();
+        
+        for( $i = 0; ; $i++ ) {
+            $curr_row = $wpdb->get_row("SELECT * FROM $use_table_name WHERE equip_id=$id", ARRAY_A, $i);
+            if( $curr_row == null ) {
+                break;
+            }
+            array_push($use_rows, $curr_row);
+        }
+        
+        $row['use'] = new Equipment_Management_Item_History($use_rows, $row['id']);
+        return new Equipment_Management_Item($row);
     }
 }
