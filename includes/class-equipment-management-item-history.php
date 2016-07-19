@@ -26,14 +26,18 @@ class Equipment_Management_Item_History {
     
     public function set( $history ) {
         
-        $this->attrs = array(
-            'ID'             => $history['ID'],
-            'used_by'        => $history['used_by'],
-            'amount_used'    => $history['amount_used'],
-            'date_used'      => $history['date_used'],
-            'date_back'      => $history['date_back'],
-            'usage_type'     => $history['usage_type'],
-        );
+        $this->history = array();
+        
+        foreach( $history as $entry ) {
+            array_push($this->history, array(
+                'ID'             => $entry['ID'],
+                'used_by'        => $entry['used_by'],
+                'amount_used'    => $entry['amount_used'],
+                'date_used'      => $entry['date_used'],
+                'date_back'      => $entry['date_back'],
+                'usage_type'     => $entry['usage_type'],
+            ));
+        }
     }
     
     public function sync() {
