@@ -133,6 +133,8 @@ class Equipment_Management {
                 
                 $this->shortcodes = new Equipment_Management_Shortcodes();
                 
+                $this->register_post_type("", $plural, $single, $description, $options)
+                
 		// Load API for generic admin functions
 		if ( is_admin() ) {
 			$this->admin = new Equipment_Management_Admin_API();
@@ -142,7 +144,7 @@ class Equipment_Management {
 		$this->load_plugin_textdomain();
 		add_action( 'init', array( $this, 'load_localisation' ), 0 );
 	} // End __construct ()
-
+        
 	/**
 	 * Wrapper function to register a new post type
 	 * @param  string $post_type   Post type name
