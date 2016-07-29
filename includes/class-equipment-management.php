@@ -133,7 +133,22 @@ class Equipment_Management {
                 
                 $this->shortcodes = new Equipment_Management_Shortcodes();
                 
-                $this->register_post_type("", $plural, $single, $description, $options)
+                $this->register_post_type("eqmn_item", "Equipment", "Equipment", "", 
+                        array(
+                            'rewrite' => array('slug' => 'id'),
+                            'menu_icon' => 'dashicons-archive',
+                            'menu_position' => 2,
+                            'supports' => array(
+                                'title', 'editor'
+                            )
+                            
+//                            'public' => false,
+//                            'show_ui' => false,
+//                            'show_in_nav_menus' => false,
+//                            'show_in_menu' => false,
+//                            'show_in_admin_bar' => false,
+                        )
+                );
                 
 		// Load API for generic admin functions
 		if ( is_admin() ) {
