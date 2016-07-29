@@ -11,6 +11,7 @@
 
 // If plugin is not being uninstalled, exit (do nothing)
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+        flush_rewrite_rules();
 	exit;
 }
 
