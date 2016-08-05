@@ -88,13 +88,33 @@ class Equipment_Management_Item {
         $this->attrs['use']->sync();
     }
     
-    public static function create_item( $id ) {
+    /**
+     * 
+     * @global Equipment_Management $equipment_management
+     * @global WPDB $wpdb
+     * @param int $id
+     * @param string $id_type "item"|"post"
+     * @return \Equipment_Management_Item|boolean
+     */
+    public static function create_item( $id, $id_type = "item" ) {
         global $equipment_management;
         global $wpdb;
         
         $main_table_name = $equipment_management->database->table_names['main_table'];
         
-        $row = $wpdb->get_row("SELECT * FROM $main_table_name WHERE id=$id", ARRAY_A);
+        $query = "";
+        
+        switch ($id_type) {
+            case "item":
+                $query = "SELECT * FROM $main_table_name WHERE id=$id";
+                break;
+
+            case "post":
+                $query = "SELECT * FROM $main_table_name WHERE post_id=$id";
+                break;
+        }
+        
+        $row = $wpdb->get_row($query, ARRAY_A);
         if($row == null) {
             return false;
         }
