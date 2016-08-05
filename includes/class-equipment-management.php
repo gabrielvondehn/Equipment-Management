@@ -138,8 +138,7 @@ class Equipment_Management {
                             'rewrite' => array('slug' => 'id'),
                             'menu_icon' => 'dashicons-archive',
                             'menu_position' => 2,
-                            'supports' => array(
-                            ),
+                            'supports' => array('title'),
                             'hierarchical' => false,
                             
 //                            'public' => false,
@@ -242,10 +241,6 @@ class Equipment_Management {
                 remove_meta_box( 'commentsdiv', 'eqmn_item', 'normal' );
                 remove_meta_box( 'submitdiv', 'eqmn_item', 'side' );
                 remove_meta_box( 'slugdiv', 'eqmn_item', 'normal' );
-            });
-            
-            add_action( 'quick_edit_custom_box', function() {
-                echo 'Hello';
             });
             
             // Add custom meta boxes
