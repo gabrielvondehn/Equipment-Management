@@ -140,7 +140,8 @@ class Equipment_Management {
                             'menu_position' => 2,
                             'supports' => array(
                                 'title'
-                            )
+                            ),
+                            'hierarchical' => false,
                             
 //                            'public' => false,
 //                            'show_ui' => false,
@@ -168,6 +169,7 @@ class Equipment_Management {
         public function register_eqmn_item_post_type_filters() {
             
             // In part courtesy of yoast.com and wpbeginner.com
+            // See https://yoast.com/dev-blog/custom-post-type-snippets/
             
             // BEGIN Edit Equipment screen
             
@@ -214,6 +216,12 @@ class Equipment_Management {
                 );
             } );
             
+            // Remove quick edit button
+            add_filter('post_row_actions', function( $actions ) {
+                unset($actions['inline hide-if-no-js']);
+                return $actions;
+            });
+            
             // END Edit Equipment screen
             
             // BEGIN Post/Post-new Equipment screen
@@ -235,6 +243,10 @@ class Equipment_Management {
                 remove_meta_box( 'commentsdiv', 'eqmn_item', 'normal' );
                 remove_meta_box( 'submitdiv', 'eqmn_item', 'side' );
                 remove_meta_box( 'slugdiv', 'eqmn_item', 'normal' );
+            });
+            
+            add_action( 'quick_edit_custom_box', function() {
+                echo 'Hello';
             });
             
             // Add custom meta boxes
