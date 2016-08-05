@@ -106,7 +106,7 @@ class Equipment_Management {
 	public function __construct ( $file = '', $version = '1.0.0' ) {
 		$this->_version = $version;
 		$this->_token = 'equipment_management';
-
+                
 		// Load plugin environment variables
 		$this->file = $file;
 		$this->dir = dirname( $this->file );
@@ -139,7 +139,7 @@ class Equipment_Management {
                             'menu_icon' => 'dashicons-archive',
                             'menu_position' => 2,
                             'supports' => array(
-                                'title', 'editor'
+                                'title'
                             )
                             
 //                            'public' => false,
@@ -150,6 +150,8 @@ class Equipment_Management {
                         )
                 );
                 
+                $this->register_eqmn_item_post_type_filters();
+                
 		// Load API for generic admin functions
 		if ( is_admin() ) {
 			$this->admin = new Equipment_Management_Admin_API();
@@ -159,6 +161,98 @@ class Equipment_Management {
 		$this->load_plugin_textdomain();
 		add_action( 'init', array( $this, 'load_localisation' ), 0 );
 	} // End __construct ()
+        
+        /**
+         * Register all Hooks and Filter needed for customisation of the eqmn_item pages
+         */
+        public function register_eqmn_item_post_type_filters() {
+            
+            // In part courtesy of yoast.com and wpbeginner.com
+            
+            // BEGIN Edit Equipment screen
+            
+            // Change the columns for the edit Equipment screen
+            add_filter( "manage_eqmn_item_posts_columns", function ( $cols ) {
+              $cols = array(
+                'cb'                => '<input type="checkbox" />',
+                'id'                => 'ID',
+                'name'              => 'Name',
+                'category'          => 'Kategorie',
+                'amount_availiable' => 'Anzahl verfügbar',
+              );
+              return $cols;
+            } );
+            
+            // Give new columns some content
+            add_action( "manage_eqmn_item_posts_custom_column", function( $column, $post_id ) {
+                
+                $item = Equipment_Management_Item::create_item($post_id, "post");
+                
+                switch ( $column ) {
+                    case "id":
+                        echo $item->attrs['id'];
+                        break;
+                    case "name":
+                        echo $item->attrs['name'];
+                        break;
+                    case "category":
+                        echo $item->attrs['category'];
+                        break;
+                    case "amount_availiable":
+                        echo $item->attrs['amount']; // TO DO: Availiable???
+                        break;
+                }
+            }, 10, 2 );
+            
+            // Make columns sortable
+            add_filter( "manage_edit-eqmn_item_sortable_columns", function () {
+                return array(
+                    'id'                => 'id',
+                    'name'              => 'name',
+                    'category'          => 'category',
+                    'amount_availiable' => 'amount_availiable',
+                );
+            } );
+            
+            // END Edit Equipment screen
+            
+            // BEGIN Post/Post-new Equipment screen
+            
+            // Change 'Enter title here' to 'Enter ID'
+            add_filter('enter_title_here', function ( $title ){
+                $screen = get_current_screen();
+                
+                if  ( 'eqmn_item' == $screen->post_type ) {
+                     $title = 'Enter ID';
+                }
+
+                return $title;
+            });
+            
+            // Remove the meta boxes
+            add_action( 'do_meta_boxes', function () {
+                remove_meta_box( 'commentstatusdiv', 'eqmn_item', 'normal' );
+                remove_meta_box( 'commentsdiv', 'eqmn_item', 'normal' );
+                remove_meta_box( 'submitdiv', 'eqmn_item', 'side' );
+                remove_meta_box( 'slugdiv', 'eqmn_item', 'normal' );
+            });
+            
+            // Add custom meta boxes
+            add_action( 'add_meta_boxes_eqmn_item', function() {
+                add_meta_box(
+                    'equipment_name',
+                    'Name',
+                    function() {
+                        echo 'Hi';
+                    },
+                    'eqmn_item',
+                    'normal',
+                    'default'
+                );
+            });
+            
+            // END Post/Post-new Equipment screen
+        }
         
 	/**
 	 * Wrapper function to register a new post type
@@ -176,7 +270,7 @@ class Equipment_Management {
 
 		return $post_type;
 	}
-
+        
 	/**
 	 * Wrapper function to register a new taxonomy
 	 * @param  string $taxonomy   Taxonomy name
