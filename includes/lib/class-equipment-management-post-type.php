@@ -104,7 +104,7 @@ class Equipment_Management_Post_Type {
 			'show_in_rest'       	=> true,
 	  		'rest_base'          	=> $this->post_type,
 	  		'rest_controller_class' => 'WP_REST_Posts_Controller',
-			'supports' => array( 'title', 'editor' ),
+			'supports' => array( 'title' ),
 			'menu_position' => 5,
 			'menu_icon' => 'dashicons-admin-post',
 		);
