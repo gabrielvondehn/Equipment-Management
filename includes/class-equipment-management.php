@@ -139,7 +139,6 @@ class Equipment_Management {
                             'menu_icon' => 'dashicons-archive',
                             'menu_position' => 2,
                             'supports' => array(
-                                'title'
                             ),
                             'hierarchical' => false,
                             
