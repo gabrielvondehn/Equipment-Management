@@ -245,16 +245,175 @@ class Equipment_Management {
             
             // Add custom meta boxes
             add_action( 'add_meta_boxes_eqmn_item', function() {
+                
+                // Add meta box for the equipment name
                 add_meta_box(
                     'equipment_name',
                     'Name',
-                    function() {
-                        echo 'Hi';
+                    function() { ?>
+<input type="text" id="eq_name">
+                    <?php
                     },
                     'eqmn_item',
                     'normal',
                     'default'
                 );
+                 
+                // Add meta box for the category this piece of equipment belongs to
+                add_meta_box(
+                    'equipment_category',
+                    'Kategorie',
+                    function() {?>
+<input type="text" id="eq_category">
+<?php
+                    },
+                    'eqmn_item',
+                    'normal',
+                    'default'
+                );
+                 
+                // Add meta box for the "Kategoriespezifische Angabe"
+                add_meta_box(
+                    'equipment_category_tags',
+                    'Kategoriespezifische Angabe',
+                    function() {?>
+<input type="text" id="eq_category_tags">
+<?php
+                    },
+                    'eqmn_item',
+                    'normal',
+                    'default'
+                );
+                 
+                // Add meta box for the specification of this piece of equipment
+                add_meta_box(
+                    'equipment_specification',
+                    'Spezifikation',
+                    function() {?>
+<input type="text" id="eq_specification">
+<?php
+                    },
+                    'eqmn_item',
+                    'normal',
+                    'default'
+                );
+                 
+                // Add meta box for the application of the equipment
+                add_meta_box(
+                    'equipment_application',
+                    'Einsatz',
+                    function() {?>
+<input type="text" id="eq_application">
+<?php
+                    },
+                    'eqmn_item',
+                    'normal',
+                    'default'
+                );
+                 
+                // Add meta box for enotes
+                add_meta_box(
+                    'equipment_notes',
+                    'Notizen',
+                    function() {?>
+<input type="text" id="eq_notes">
+<?php
+                    },
+                    'eqmn_item',
+                    'normal',
+                    'default'
+                );
+                 
+                // Add meta box for the price of this piece of equipment
+                add_meta_box(
+                    'equipment_price',
+                    'Einzelpreis',
+                    function() {?>
+<input type="text" id="eq_price">
+<?php
+                    },
+                    'eqmn_item',
+                    'normal',
+                    'default'
+                );
+                 
+                // Add meta box for the date it was bought
+                add_meta_box(
+                    'equipment_date_bought',
+                    'Kaufdatum',
+                    function() {?>
+<input type="text" id="eq_date_bought">
+<?php
+                    },
+                    'eqmn_item',
+                    'normal',
+                    'default'
+                );
+                 
+                // Add meta box for the bought note
+                add_meta_box(
+                    'equipment_bought_note',
+                    'Kaufnotiz',
+                    function() {?>
+<input type="text" id="eq_bought_note">
+<?php
+                    },
+                    'eqmn_item',
+                    'normal',
+                    'default'
+                );
+                 
+                // Add meta box for the vendor
+                add_meta_box(
+                    'equipment_vendor',
+                    'Verkäufer',
+                    function() {?>
+<input type="text" id="eq_vendor">
+<?php
+                    },
+                    'eqmn_item',
+                    'normal',
+                    'default'
+                );
+                 
+                // Add meta box for the if of this piece of equipment at the vendor
+                add_meta_box(
+                    'equipment_vendor_item_id',
+                    'ID beim Verkäufer',
+                    function() {?>
+<input type="text" id="eq_vendor_item_id">
+<?php
+                    },
+                    'eqmn_item',
+                    'normal',
+                    'default'
+                );
+                 
+                // Add meta box for the amount
+                add_meta_box(
+                    'equipment_amount',
+                    'Menge',
+                    function() {?>
+<input type="text" id="eq_amount">
+<?php
+                    },
+                    'eqmn_item',
+                    'normal',
+                    'default'
+                );
+                
+                // Add meta box for saving the data
+                add_meta_box(
+                    'equipment_save',
+                    'Speichern',
+                    function() {
+                        echo 'Speichern<br>TO DO: ADD FUNCTIONALITY'; // How to: look default post types? input type submit?
+                    },
+                    'eqmn_item',
+                    'side',
+                    'default'
+                );
+                
             });
             
             // END Post/Post-new Equipment screen
