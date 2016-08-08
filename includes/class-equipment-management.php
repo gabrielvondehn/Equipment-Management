@@ -222,6 +222,7 @@ class Equipment_Management {
             
             // END Edit Equipment screen
             
+            
             // BEGIN Post/Post-new Equipment screen
             
             // Change 'Enter title here' to 'Enter ID'
@@ -239,7 +240,7 @@ class Equipment_Management {
             add_action( 'do_meta_boxes', function () {
                 remove_meta_box( 'commentstatusdiv', 'eqmn_item', 'normal' );
                 remove_meta_box( 'commentsdiv', 'eqmn_item', 'normal' );
-                remove_meta_box( 'submitdiv', 'eqmn_item', 'side' );
+                // remove_meta_box( 'submitdiv', 'eqmn_item', 'side' );
                 remove_meta_box( 'slugdiv', 'eqmn_item', 'normal' );
             });
             
@@ -401,20 +402,33 @@ class Equipment_Management {
                     'normal',
                     'default'
                 );
+                    
+                /*
                 
                 // Add meta box for saving the data
                 add_meta_box(
                     'equipment_save',
                     'Speichern',
-                    function() {
-                        echo 'Speichern<br>TO DO: ADD FUNCTIONALITY'; // How to: look default post types? input type submit?
+                    function() {//  How to: look default post types? input type submit? ?>
+<input type="submit" id="eq_save" value="Speichern" class="button button-primary button-large">
+<?php
                     },
                     'eqmn_item',
                     'side',
                     'default'
-                );
+                );*/
                 
             });
+            
+            // Changing the text of submit to display "Save"
+            add_filter( 'gettext', function ($translation, $text) {
+                if('eqmn_item' == get_post_type()) {
+                    if($text == 'Publish') {
+                        return 'Save';
+                    }
+                }
+                return $translation;
+            }, 10, 2);
             
             // END Post/Post-new Equipment screen
         }
