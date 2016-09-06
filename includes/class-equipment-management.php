@@ -442,7 +442,7 @@ class Equipment_Management {
                 if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
                     return;
                 
-                
+                /*
                 // A hacky way of avoiding php notices of undefinded indices on initial page load
                 if( empty($_POST['equipment_mangagement_eq_nonce']) )
                     return;
@@ -452,9 +452,7 @@ class Equipment_Management {
                 
                 if ( !wp_verify_nonce( $_POST['equipment_mangagement_eq_nonce'], plugin_basename( __FILE__ ) ) )
                     return;
-                
-                
-                echo $post_id;
+                */
                 
                 // Check permissions
                 if ( 'page' == $post->post_type ) 
@@ -468,10 +466,10 @@ class Equipment_Management {
                       return;
                 }
                 
-                $use = new Equipment_Management_Item_History( array(), $_POST['title'] );
+                $use = new Equipment_Management_Item_History( array(), $post->post_title );
                 
                 $item_attr = array(
-                    'id'             => $_POST['title'],
+                    'id'             => $post->post_title,
                     'post_id'        => $post_id,
                     'date_added'     => time(),
                     'name'           => $_POST['eq_name'],
