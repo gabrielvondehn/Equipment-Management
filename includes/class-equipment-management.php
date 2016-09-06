@@ -225,6 +225,10 @@ class Equipment_Management {
             
             // BEGIN Post/Post-new Equipment screen
             
+            add_action('edit_form_top', function() {
+                wp_nonce_field( 'edit_equipment', 'equipment_mangagement_eq_nonce' );
+            });
+            
             // Change 'Enter title here' to 'Enter ID'
             add_filter('enter_title_here', function ( $title ){
                 $screen = get_current_screen();
@@ -429,6 +433,68 @@ class Equipment_Management {
                 }
                 return $translation;
             }, 10, 2);
+            
+            // Make those new inputs actually do something
+            add_action( 'save_post_eqmn_item', function( $post_id, $post, $update ) {
+                
+                // verify if this is an auto save routine. 
+                // If it is our form has not been submitted, so we dont want to do anything
+                if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+                    return;
+                
+                
+                // A hacky way of avoiding php notices of undefinded indices on initial page load
+                if( empty($_POST['equipment_mangagement_eq_nonce']) )
+                    return;
+                
+                // verify this came from the our screen and with proper authorization,
+                // because save_post can be triggered at other times
+                
+                if ( !wp_verify_nonce( $_POST['equipment_mangagement_eq_nonce'], plugin_basename( __FILE__ ) ) )
+                    return;
+                
+                
+                echo $post_id;
+                
+                // Check permissions
+                if ( 'page' == $post->post_type ) 
+                {
+                  if ( !current_user_can( 'edit_equip', $post_id ) )
+                      return;
+                }
+                else
+                {
+                  if ( !current_user_can( 'edit_equip', $post_id ) )
+                      return;
+                }
+                
+                $use = new Equipment_Management_Item_History( array(), $_POST['title'] );
+                
+                $item_attr = array(
+                    'id'             => $_POST['title'],
+                    'post_id'        => $post_id,
+                    'date_added'     => time(),
+                    'name'           => $_POST['eq_name'],
+                    'category'       => $_POST['eq_category'],
+                    'category_tags'  => $_POST['eq_category_tags'],
+                    'specification'  => $_POST['eq_specification'],
+                    'application'    => $_POST['eq_application'],
+                    'notes'          => $_POST['eq_notes'],
+                    'price'          => $_POST['eq_price'],
+                    'date_bought'    => $_POST['eq_date_bought'],
+                    'bought_note'    => $_POST['eq_bought_note'],
+                    'vendor'         => $_POST['eq_vendor'],
+                    'vendor_item_id' => $_POST['eq_vendor_item_id'],
+                    'amount'         => $_POST['eq_amount'],
+                    'use'            => $use,
+                );
+                
+                $item = new Equipment_Management_Item( $item_attr );
+                
+                $item->sync();
+            }, 10, 3);
+            
+            
             
             // END Post/Post-new Equipment screen
         }
