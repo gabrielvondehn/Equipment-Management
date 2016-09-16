@@ -442,7 +442,7 @@ class Equipment_Management {
                     'equipment_use',
                     'Benutzung',
                     function() { global $attrs; ?>
-<table>
+<table id="eq_use_table">
     <tr>
         <th>Benutzer</th>
         <th>Menge</th>
@@ -468,19 +468,16 @@ class Equipment_Management {
         }
     }
     ?>
-    <tr id="eq_use_row_new_1">
-        <td><input type="text" id="eq_use_used_by_new_1" name="eq_use_used_by_new_1"></td>
-        <td><input type="number" step="1" id="eq_use_amount_used_new_1" name="eq_use_amount_used_new_1"></td>
-        <td><input type="date" id="eq_use_date_used_new_1" name="eq_use_date_used_new_1"></td>
-        <td><input type="date" id="eq_use_date_back_new_1" name="eq_use_date_back_new_1"></td>
-    </tr>
 </table>
+<button id="eq_use_add_new" type="button">Neu...</button>
 <?php
                     },
                     'eqmn_item',
                     'normal',
                     'default'
                 );
+                    
+                wp_enqueue_script( $this->_token . '-add-item', esc_url( $this->assets_url ) . 'js/add-item' . $this->script_suffix . '.js', array( 'jquery' ), $this->_version );
                     
                 /*
                 
