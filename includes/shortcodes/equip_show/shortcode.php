@@ -39,7 +39,7 @@ function equipment_management_show_id_shortcode( $item ) {
                 $use_html.="<tr>";
                     $use_html.="<th>Benutzer</th>";
                     $use_html.="<th>Menge</th>";
-                    $use_html.="<th>Datum</th>";
+                    $use_html.="<th>Seit</th>";
                 $use_html.="</tr>";
                 foreach ($current_use as $use) {
                     $use_html.="<tr>";
@@ -59,8 +59,8 @@ function equipment_management_show_id_shortcode( $item ) {
                 $use_html.="<tr>";
                     $use_html.="<th>Benutzer</th>";
                     $use_html.="<th>Menge</th>";
-                    $use_html.="<th>Datum</th>";
-                    $use_html.="<th>Rückgabedatum</th>";
+                    $use_html.="<th>Start</th>";
+                    $use_html.="<th>Ende</th>";
                 $use_html.="</tr>";
                 foreach ($use_histroy as $use) {
                     $use_html.="<tr>";
