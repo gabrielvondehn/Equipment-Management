@@ -48,7 +48,7 @@ class Equipment_Management_Item {
         $table_name = $equipment_management->database->table_names['main_table'];
         $id = $this->attrs['equip_id'];
         
-        // To avid SQL Errors, go through all entries
+        // To avoid SQL Errors, go through all entries
         foreach( $this->attrs as $attr ) {
             if($attr === null) return false;
         }
@@ -58,7 +58,7 @@ class Equipment_Management_Item {
                 array(
                     'id'             => $this->attrs['id'],
                     'post_id'        => $this->attrs['post_id'],
-                    'date_added'     => $this->attrs['date_added'],
+                    'date_added'     => $this->attrs['date_added'].' 00:00:00', // We only store date in this object, but datetime in database
                     'name'           => $this->attrs['name'],
                     'category'       => $this->attrs['category'],
                     'category_tags'  => $this->attrs['category_tags'],
@@ -66,7 +66,7 @@ class Equipment_Management_Item {
                     'application'    => $this->attrs['application'],
                     'notes'          => $this->attrs['notes'],
                     'price'          => $this->attrs['price'],
-                    'date_bought'    => $this->attrs['date_bought'],
+                    'date_bought'    => $this->attrs['date_bought'].' 00:00:00', // We only store date in this object, but datetime in database
                     'bought_note'    => $this->attrs['bought_note'],
                     'vendor'         => $this->attrs['vendor'],
                     'vendor_item_id' => $this->attrs['vendor_item_id'],
@@ -134,15 +134,21 @@ class Equipment_Management_Item {
         
         $use_rows = array();
         
+        $item_id = $row['id'];
+        
         for( $i = 0; ; $i++ ) {
-            $curr_row = $wpdb->get_row("SELECT * FROM $use_table_name WHERE equip_id=$id", ARRAY_A, $i);
+            $curr_row = $wpdb->get_row("SELECT * FROM $use_table_name WHERE equip_id=$item_id", ARRAY_A, $i);
             if( $curr_row == null ) {
                 break;
             }
+            $curr_row['date_used'] = substr( $curr_row['date_used'], 0, 10 ); // Database stores the datetime, we only want date
+            $curr_row['date_back'] = substr( $curr_row['date_back'], 0, 10 );
             array_push($use_rows, $curr_row);
         }
         
         $row['use'] = new Equipment_Management_Item_History($use_rows, $row['id']);
+        $row['date_added'] = substr( $row['date_added'], 0, 10 ); // Database stores the datetime, we only want date
+        $row['date_bought'] = substr( $row['date_bought'], 0, 10 );
         return new Equipment_Management_Item($row);
     }
 }

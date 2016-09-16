@@ -35,7 +35,7 @@ class Equipment_Management_Item_History {
                 'amount_used'    => $entry['amount_used'],
                 'date_used'      => $entry['date_used'],
                 'date_back'      => $entry['date_back'],
-                'usage_type'     => $entry['usage_type'],
+                'usage_type'     => 'normal', // Not implemented yet
             ));
         }
     }
@@ -53,8 +53,8 @@ class Equipment_Management_Item_History {
                     array(
                         'used_by'        => $entry['used_by'],
                         'amount_used'    => $entry['amount_used'],
-                        'date_used'      => $entry['date_used'],
-                        'date_back'      => $entry['date_back'],
+                        'date_used'      => $entry['date_used'].' 00:00:00', // We only store date in this object, but datetime in database
+                        'date_back'      => $entry['date_back'].' 00:00:00', // We only store date in this object, but datetime in database
                         'usage_type'     => $entry['usage_type'],
                     ));
             } else {
@@ -62,8 +62,8 @@ class Equipment_Management_Item_History {
                     array(
                         'used_by'        => $entry['used_by'],
                         'amount_used'    => $entry['amount_used'],
-                        'date_used'      => $entry['date_used'],
-                        'date_back'      => $entry['date_back'],
+                        'date_used'      => $entry['date_used'].' 00:00:00', // We only store date in this object, but datetime in database
+                        'date_back'      => $entry['date_back'].' 00:00:00', // We only store date in this object, but datetime in database
                         'usage_type'     => $entry['usage_type'],
                     ), array(
                         'ID' => $entry['ID'],
