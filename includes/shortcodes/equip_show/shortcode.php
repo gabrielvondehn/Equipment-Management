@@ -26,7 +26,7 @@ function equipment_management_show_id_shortcode( $item ) {
         $use_histroy = array();
 
         foreach ($history as $use) {
-            if($use['date_back'] == "1000-01-01 00:00:00") {
+            if($use['date_back'] == "1000-01-01") {
                 array_push($current_use, $use);
             } else {
                 array_push($use_histroy, $use);
