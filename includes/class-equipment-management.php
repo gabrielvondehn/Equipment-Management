@@ -249,14 +249,44 @@ class Equipment_Management {
             });
             
             // Add custom meta boxes
-            add_action( 'add_meta_boxes_eqmn_item', function() {
+            add_action( 'add_meta_boxes_eqmn_item', function($post) {
+                
+                $post_id = $post->ID;
+                
+                global $item;
+                $item = Equipment_Management_Item::create_item($post_id, 'post');
+                
+                global $attrs;
+                
+                $attrs = array(
+                    'date_added' => date('Y-m-d'), // To have a date added for new items
+                    'name'           => '',
+                    'category'       => '',
+                    'category_tags'  => '',
+                    'specification'  => '',
+                    'application'    => '',
+                    'notes'          => '',
+                    'price'          => '',
+                    'date_bought'    => '',
+                    'bought_note'    => '',
+                    'vendor'         => '',
+                    'vendor_item_id' => '',
+                    'amount'         => '',
+                );
+                
+                if($item !== false) {
+                    $attrs = $item->attrs;
+                }
+                
+                
                 
                 // Add meta box for the equipment name
                 add_meta_box(
                     'equipment_name',
                     'Name',
-                    function() { ?>
-<input type="text" id="eq_name">
+                    function() { global $attrs; ?>
+<input type="text" id="eq_name" name="eq_name" value="<?php echo $attrs['name']; ?>">
+<input type="hidden" id="eq_date_added" name="eq_date_added" value="<?php echo $attrs['date_added']; ?>">
                     <?php
                     },
                     'eqmn_item',
@@ -268,8 +298,8 @@ class Equipment_Management {
                 add_meta_box(
                     'equipment_category',
                     'Kategorie',
-                    function() {?>
-<input type="text" id="eq_category">
+                    function() { global $attrs; ?>
+<input type="text" id="eq_category" name="eq_category" value="<?php echo $attrs['category']; ?>">
 <?php
                     },
                     'eqmn_item',
@@ -281,8 +311,8 @@ class Equipment_Management {
                 add_meta_box(
                     'equipment_category_tags',
                     'Kategoriespezifische Angabe',
-                    function() {?>
-<input type="text" id="eq_category_tags">
+                    function() { global $attrs; ?>
+<input type="text" id="eq_category_tags" name="eq_category_tags" value="<?php echo $attrs['category_tags']; ?>">
 <?php
                     },
                     'eqmn_item',
@@ -294,8 +324,8 @@ class Equipment_Management {
                 add_meta_box(
                     'equipment_specification',
                     'Spezifikation',
-                    function() {?>
-<input type="text" id="eq_specification">
+                    function() { global $attrs; ?>
+<input type="text" id="eq_specification" name="eq_specification" value="<?php echo $attrs['specification']; ?>">
 <?php
                     },
                     'eqmn_item',
@@ -307,8 +337,8 @@ class Equipment_Management {
                 add_meta_box(
                     'equipment_application',
                     'Einsatz',
-                    function() {?>
-<input type="text" id="eq_application">
+                    function() { global $attrs; ?>
+<input type="text" id="eq_application" name="eq_application" value="<?php echo $attrs['application']; ?>">
 <?php
                     },
                     'eqmn_item',
@@ -320,8 +350,8 @@ class Equipment_Management {
                 add_meta_box(
                     'equipment_notes',
                     'Notizen',
-                    function() {?>
-<input type="text" id="eq_notes">
+                    function() { global $attrs; ?>
+<input type="text" id="eq_notes" name="eq_notes" value="<?php echo $attrs['notes']; ?>">
 <?php
                     },
                     'eqmn_item',
@@ -333,8 +363,8 @@ class Equipment_Management {
                 add_meta_box(
                     'equipment_price',
                     'Einzelpreis',
-                    function() {?>
-<input type="text" id="eq_price">
+                    function() { global $attrs; ?>
+<input type="number" step="0.01" id="eq_price" name="eq_price" value="<?php echo $attrs['price']; ?>">
 <?php
                     },
                     'eqmn_item',
@@ -346,8 +376,8 @@ class Equipment_Management {
                 add_meta_box(
                     'equipment_date_bought',
                     'Kaufdatum',
-                    function() {?>
-<input type="text" id="eq_date_bought">
+                    function() { global $attrs; ?>
+<input type="date" id="eq_date_bought" name="eq_date_bought" value="<?php echo $attrs['date_bought']; ?>">
 <?php
                     },
                     'eqmn_item',
@@ -359,8 +389,8 @@ class Equipment_Management {
                 add_meta_box(
                     'equipment_bought_note',
                     'Kaufnotiz',
-                    function() {?>
-<input type="text" id="eq_bought_note">
+                    function() { global $attrs; ?>
+<input type="text" id="eq_bought_note" name="eq_bought_note" value="<?php echo $attrs['bought_note']; ?>">
 <?php
                     },
                     'eqmn_item',
@@ -372,8 +402,8 @@ class Equipment_Management {
                 add_meta_box(
                     'equipment_vendor',
                     'Verkäufer',
-                    function() {?>
-<input type="text" id="eq_vendor">
+                    function() { global $attrs; ?>
+<input type="text" id="eq_vendor" name="eq_vendor" value="<?php echo $attrs['vendor']; ?>">
 <?php
                     },
                     'eqmn_item',
@@ -385,8 +415,8 @@ class Equipment_Management {
                 add_meta_box(
                     'equipment_vendor_item_id',
                     'ID beim Verkäufer',
-                    function() {?>
-<input type="text" id="eq_vendor_item_id">
+                    function() { global $attrs; ?>
+<input type="number" step="1" id="eq_vendor_item_id" name="eq_vendor_item_id" value="<?php echo $attrs['vendor_item_id']; ?>">
 <?php
                     },
                     'eqmn_item',
@@ -398,8 +428,53 @@ class Equipment_Management {
                 add_meta_box(
                     'equipment_amount',
                     'Menge',
-                    function() {?>
-<input type="text" id="eq_amount">
+                    function() { global $attrs; ?>
+<input type="number" step="1" id="eq_amount" name="eq_amount" value="<?php echo $attrs['amount']; ?>">
+<?php
+                    },
+                    'eqmn_item',
+                    'normal',
+                    'default'
+                );
+                    
+                // Add a meta box for history
+                add_meta_box(
+                    'equipment_use',
+                    'Benutzung',
+                    function() { global $attrs; ?>
+<table>
+    <tr>
+        <th>Benutzer</th>
+        <th>Menge</th>
+        <th>Start</th>
+        <th>Ende</th>
+    </tr>
+    <?php
+    // If this is a new item, all iteration over Equipment_Management_Item_History would fail
+    if(isset($attrs['use'])) {
+        foreach( $attrs['use']->history as $entry ) {
+            ?>
+    <tr id="<?php echo 'eq_use_row_'.$entry['ID']; ?>">
+        <td><input type="text" id="<?php echo 'eq_use_used_by_'.$entry['ID']; ?>" name="<?php echo 'eq_use_used_by_'.$entry['ID']; ?>" value="<?php echo $entry['used_by']; ?>"></td>
+        <td><input type="number" step="1" id="<?php echo 'eq_use_amount_used_'.$entry['ID']; ?>" name="<?php echo 'eq_use_amount_used_'.$entry['ID']; ?>" value="<?php echo $entry['amount_used']; ?>"></td>
+        <td><input type="date" id="<?php echo 'eq_use_date_used_'.$entry['ID']; ?>" name="<?php echo 'eq_use_date_used_'.$entry['ID']; ?>" value="<?php echo $entry['date_used']; ?>"></td>
+        <td><input type="date" id="<?php echo 'eq_use_date_back_'.$entry['ID']; ?>" name="<?php echo 'eq_use_date_back_'.$entry['ID']; ?>" value="<?php 
+        if($entry['date_back'] != '1000-01-01') {
+            echo $entry['date_back'];
+        }
+        ?>"></td>
+    </tr>
+    <?php
+        }
+    }
+    ?>
+    <tr id="eq_use_row_new_1">
+        <td><input type="text" id="eq_use_used_by_new_1" name="eq_use_used_by_new_1"></td>
+        <td><input type="number" step="1" id="eq_use_amount_used_new_1" name="eq_use_amount_used_new_1"></td>
+        <td><input type="date" id="eq_use_date_used_new_1" name="eq_use_date_used_new_1"></td>
+        <td><input type="date" id="eq_use_date_back_new_1" name="eq_use_date_back_new_1"></td>
+    </tr>
+</table>
 <?php
                     },
                     'eqmn_item',
@@ -440,38 +515,40 @@ class Equipment_Management {
                 // verify if this is an auto save routine. 
                 // If it is our form has not been submitted, so we dont want to do anything
                 if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
-                    return;
-                
-                /*
-                // A hacky way of avoiding php notices of undefinded indices on initial page load
-                if( empty($_POST['equipment_mangagement_eq_nonce']) )
-                    return;
-                
-                // verify this came from the our screen and with proper authorization,
-                // because save_post can be triggered at other times
-                
-                if ( !wp_verify_nonce( $_POST['equipment_mangagement_eq_nonce'], plugin_basename( __FILE__ ) ) )
-                    return;
-                */
+                    wp_die('autosave');
+                    //return;
+
+                // TO DO: NONCE!!
                 
                 // Check permissions
                 if ( 'page' == $post->post_type ) 
                 {
                   if ( !current_user_can( 'edit_equip', $post_id ) )
-                      return;
+                      wp_die('not permissions');
+                      //return;
                 }
                 else
                 {
                   if ( !current_user_can( 'edit_equip', $post_id ) )
-                      return;
+                      wp_die('no permissions and wrong page');
+                      //return;
                 }
                 
                 $use = new Equipment_Management_Item_History( array(), $post->post_title );
                 
+                if (!(isset($_POST['eq_name']) && isset($_POST['eq_category']) &&
+                        isset($_POST['eq_category_tags']) && isset($_POST['eq_specification'])
+                        && isset($_POST['eq_application']) && isset($_POST['eq_notes'])
+                        && isset($_POST['eq_price']) && isset($_POST['eq_date_bought'])
+                        && isset($_POST['eq_bought_note']) && isset($_POST['eq_vendor'])
+                        && isset($_POST['eq_vendor_item_id']) && isset($_POST['eq_amount'])) ) {
+                    return;
+                }
+                
                 $item_attr = array(
                     'id'             => $post->post_title,
                     'post_id'        => $post_id,
-                    'date_added'     => time(),
+                    'date_added'     => $_POST['eq_date_added'],
                     'name'           => $_POST['eq_name'],
                     'category'       => $_POST['eq_category'],
                     'category_tags'  => $_POST['eq_category_tags'],
