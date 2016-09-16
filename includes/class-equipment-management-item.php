@@ -29,12 +29,17 @@ class Equipment_Management_Item {
             'bought_note'    => $attrs['bought_note'],
             'vendor'         => $attrs['vendor'],
             'vendor_item_id' => $attrs['vendor_item_id'],
-            'bundle'         => $attrs['bundle'],
+            'bundle'         => 'none', // Bundles are not implemented yet
             'amount'         => $attrs['amount'],
             'use'            => $attrs['use'],
         );
     }
     
+    
+    /**
+     * 
+     * @return boolean false on failior
+     */
     public function sync() {
         
         global $equipment_management;
@@ -42,6 +47,12 @@ class Equipment_Management_Item {
         
         $table_name = $equipment_management->database->table_names['main_table'];
         $id = $this->attrs['equip_id'];
+        
+        // To avid SQL Errors, go through all entries
+        foreach( $this->attrs as $attr ) {
+            if($attr === null) return false;
+        }
+        
         if( null == $wpdb->get_row("SELECT * FROM $table_name WHERE 'id=$id'") ) { // New entry
             $wpdb->insert( $table_name,
                 array(
