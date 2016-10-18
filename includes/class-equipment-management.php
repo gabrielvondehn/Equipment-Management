@@ -506,6 +506,28 @@ class Equipment_Management {
                 return $translation;
             }, 10, 2);
             
+            /**
+             * If post type is eqmn_item, this will set the heading (Item ID) a requirement
+             */
+            add_filter('wp_insert_post_empty_content', function($maybe_empty, $postarr) {
+                
+                if($postarr['post_type'] != 'eqmn_item') return false;
+                
+                if($postarr['post_title'] == '') {
+                    return true;
+                } else {
+                    return false;
+                }
+            }, 99, 2);
+            
+            
+            add_filter( 'wp_insert_post_data', function($data, $postarr) {
+                $new_content = '[equip_show id="'.$postarr['post_title'].'"]';
+                $new_content = wp_slash($new_content);
+                $data['post_content'] = $new_content;
+                return $data;
+            }, 99, 2 );
+            
             // Make those new inputs actually do something
             add_action( 'save_post_eqmn_item', function( $post_id, $post, $update ) {
                 
