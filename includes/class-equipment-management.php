@@ -553,8 +553,8 @@ class Equipment_Management {
                       //return;
                 }
                 
-                $use = new Equipment_Management_Item_History( array(), $post->post_title );
-                
+                                
+                // If any of the required fields are not given, return
                 if (!(isset($_POST['eq_name']) && isset($_POST['eq_category']) &&
                         isset($_POST['eq_category_tags']) && isset($_POST['eq_specification'])
                         && isset($_POST['eq_application']) && isset($_POST['eq_notes'])
@@ -563,6 +563,37 @@ class Equipment_Management {
                         && isset($_POST['eq_vendor_item_id']) && isset($_POST['eq_amount'])) ) {
                     return;
                 }
+                
+                // Get the new uses input by the user
+                $new_use_array = array();
+                
+                $i = 0;
+                
+                do { 
+                    $i++;
+                    $this_item = array(
+                        'used_by'        => $_POST["eq_use_used_by_new_$i"],
+                        'amount_used'    => $_POST["eq_use_amount_used_new_$i"],
+                        'date_used'      => $_POST["eq_use_date_used_new_$i"],
+                        'date_back'      => $_POST["eq_use_date_back_new_$i"]
+                    );
+                    
+                    if( !(isset($this_item['used_by']) && isset($this_item['amount_used'])) ) {
+                        continue; // We are contiuning, because this might just be an error by the user.
+                    }
+                    if( !isset($this_item['date_used']) ) {
+                        $this_item['date_used'] = current_time('Y-m-d');
+                    }
+                    if( !isset($this_item['date_back']) ) {
+                        $this_item['date_back'] = "0000-00-00";
+                    }
+                    
+                    array_push($new_use_array, $this_item);
+                    
+                // There are new history entries as long as there is a next item containing used_by
+                } while(isset($_POST["eq_use_used_by_new_".$i+1])); 
+                
+                $use = new Equipment_Management_Item_History( $new_use_array, $post->post_title );
                 
                 $item_attr = array(
                     'id'             => $post->post_title,
@@ -580,7 +611,7 @@ class Equipment_Management {
                     'vendor'         => $_POST['eq_vendor'],
                     'vendor_item_id' => $_POST['eq_vendor_item_id'],
                     'amount'         => $_POST['eq_amount'],
-                    'use'            => $use,
+                    'use'            => $use, // This will only have the NEW use!
                 );
                 
                 $item = new Equipment_Management_Item( $item_attr );
