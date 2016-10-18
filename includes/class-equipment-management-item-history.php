@@ -51,6 +51,7 @@ class Equipment_Management_Item_History {
             if( empty($entry['ID']) ) { // New history entry
                 $wpdb->insert( $table_name,
                     array(
+                        'equip_id'       => $this->item_id,
                         'used_by'        => $entry['used_by'],
                         'amount_used'    => $entry['amount_used'],
                         'date_used'      => $entry['date_used'].' 00:00:00', // We only store date in this object, but datetime in database
