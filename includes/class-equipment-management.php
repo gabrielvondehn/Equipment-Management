@@ -199,7 +199,16 @@ class Equipment_Management {
                         echo $item->attrs['category'];
                         break;
                     case "amount_availiable":
-                        echo $item->attrs['amount']; // TO DO: Availiable???
+                        // Calculate amount availiable
+                        $history = $item->attrs["use"]->history;
+                        $amount_used = 0;
+                        foreach ($history as $use) {
+                            if($use['date_back'] == "1000-01-01") {
+                                $amount_used+=$use['amount_used'];
+                            }
+                        }
+                        $total_amount = $item->attrs['amount'];
+                        echo ($total_amount-$amount_used)."/".$total_amount;
                         break;
                 }
             }, 10, 2 );
