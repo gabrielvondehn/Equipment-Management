@@ -48,11 +48,6 @@ require_once( 'includes/shortcodes/class-equipment-management-shortcodes.php' );
  */
 function Equipment_Management () {
 	$instance = Equipment_Management::instance( __FILE__, EQUIPMENT_MANAGEMENT_VERSION );
-
-        /* No settings for now
-	if ( is_null( $instance->settings ) ) {
-		$instance->settings = Equipment_Management_Settings::instance( $instance );
-	}*/
         
         global $equipment_management;
         $equipment_management = $instance;

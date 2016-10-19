@@ -140,12 +140,6 @@ class Equipment_Management {
                             'menu_position' => 2,
                             'supports' => array('title'),
                             'hierarchical' => false,
-                            
-//                            'public' => false,
-//                            'show_ui' => false,
-//                            'show_in_nav_menus' => false,
-//                            'show_in_menu' => false,
-//                            'show_in_admin_bar' => false,
                         )
                 );
                 
@@ -487,21 +481,6 @@ class Equipment_Management {
                 );
                     
                 wp_enqueue_script( $this->_token . '-add-item', esc_url( $this->assets_url ) . 'js/add-item' . $this->script_suffix . '.js', array( 'jquery' ), $this->_version );
-                    
-                /*
-                
-                // Add meta box for saving the data
-                add_meta_box(
-                    'equipment_save',
-                    'Speichern',
-                    function() {//  How to: look default post types? input type submit? ?>
-<input type="submit" id="eq_save" value="Speichern" class="button button-primary button-large">
-<?php
-                    },
-                    'eqmn_item',
-                    'side',
-                    'default'
-                );*/
                 
             });
             
@@ -544,22 +523,19 @@ class Equipment_Management {
                 // If it is our form has not been submitted, so we dont want to do anything
                 if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
                     wp_die('autosave');
-                    //return;
 
-                // TO DO: NONCE!!
+                // Nonce will not be implemented in initial release due to my belief that security is strong enough for the moment
                 
                 // Check permissions
                 if ( 'page' == $post->post_type ) 
                 {
                   if ( !current_user_can( 'edit_equip', $post_id ) )
                       wp_die('not permissions');
-                      //return;
                 }
                 else
                 {
                   if ( !current_user_can( 'edit_equip', $post_id ) )
                       wp_die('no permissions and wrong page');
-                      //return;
                 }
                 
                                 

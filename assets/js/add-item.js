@@ -8,11 +8,3 @@ jQuery(document).ready(function( $ ) {
         table.append(new_rows); 
     });
 });
-
-/*
-    <tr id="eq_use_row_new_1">
-        <td><input type="text" id="eq_use_used_by_new_1" name="eq_use_used_by_new_1"></td>
-        <td><input type="number" step="1" id="eq_use_amount_used_new_1" name="eq_use_amount_used_new_1"></td>
-        <td><input type="date" id="eq_use_date_used_new_1" name="eq_use_date_used_new_1"></td>
-        <td><input type="date" id="eq_use_date_back_new_1" name="eq_use_date_back_new_1"></td>
-    </tr>*/
