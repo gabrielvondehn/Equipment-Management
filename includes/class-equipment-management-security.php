@@ -12,7 +12,6 @@ class Equipment_Management_Security {
         $opn_capabilities = get_option( 'equipment_managment_public_capabilities' );
         
         if($opn_capabilities == false) {
-            echo "opn_caps was false";
             $this->set_default_capabilities();
         } else {
             $this->public_caps = $opn_capabilities;
