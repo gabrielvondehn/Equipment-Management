@@ -7,6 +7,14 @@
  */
 function equipment_management_show_id_shortcode( $item ) {
     
+    global $equipment_management;
+    $security = $equipment_management->security;
+    
+    if(!$security->current_user_can("view_id")) {
+        echo "Sorry, you don't have permissions to view this page.";
+        return;
+    }
+    
     // Doing setup work
     
     // The html for the current and past use tables
@@ -78,72 +86,43 @@ function equipment_management_show_id_shortcode( $item ) {
     
     // Finished setup work
     
-    // The HTML returned
+    // Construct array containing all attributes & html; non-attributes are prefixed with a "_"
+    $htmlarr = array();
+    
+    $htmlarr['_div_start'] = "<div>";
+    $htmlarr['equip_name'] = "<h1>" . $item->attrs['name'] . "</h1>"; //Item Name as heading
+    $htmlarr['_table_start'] = "<table>"; //Table for more specific item attributes
+    $htmlarr['id'] ="<tr><td>ID</td><td>" . $item->attrs['id'] . "</td></tr>";
+    $htmlarr['equip_category'] = "<tr><td>Kategorie</td><td>" . $item->attrs['category'] . "</td></tr>";
+    $htmlarr['equip_specitication'] = "<tr><td>Spezifikation</td><td>" . $item->attrs['specification'] . "</td></tr>";
+    $htmlarr['equip_category_tags'] = "<tr><td>Kategoriespezifische Angabe</td><td>" . $item->attrs['category_tags'] . "</td></tr>";
+    $htmlarr['equip_application'] = "<tr><td>Einsatz/Verbindung</td><td>" . $item->attrs['application'] . " </td></tr>";
+    $htmlarr['equip_notes'] = "<tr><td>Notiz</td><td>" . $item->attrs['notes'] . "</td></tr>";
+    $htmlarr['date_bought'] = "<tr><td>Kaufdatum</td><td>" . $item->attrs['date_bought'] . "</td></tr>";
+    $htmlarr['bought_note'] = "<tr><td>Kaufnotiz</td><td>" . $item->attrs['bought_note'] . "</td></tr>";
+    $htmlarr['equip_price'] = "<tr><td>Neupreis</td><td>" . $item->attrs['price'] . "€</td></tr>";
+    $htmlarr['equip_vendor'] = "<tr><td>Händler</td><td>" . $item->attrs['vendor'] . "</td></tr>";
+    $htmlarr['vendor_item_id'] = "<tr><td>Artikelnummer beim Händler</td><td>" . $item->attrs['vendor_item_id'] . "</td></tr>";
+    $htmlarr['equip_amount'] = "<tr><td>Insgesammt vorhandene Anzahl</td><td>" . $item->attrs['amount'] . "</td></tr>";
+    $unused_amount = $item->attrs['amount'] - $amount_in_use;
+    $htmlarr['equip_in_use'] = "<tr><td>Verfügbare Anzahl</td><td>" . $unused_amount . "</td></tr>";
+    $htmlarr['_table_end'] = "</table>";
+    $htmlarr['equip_history'] = $use_html; 
+    $htmlarr['_div_end'] = "</div>";
+    
+    
+    // The final HTML returned
     $html = "";
     
-    // Formatted as HTML
-    $html.= "<div>";
-    
-        $html.="<h1>" . $item->attrs['name'] . "</h1>"; //Item Name as heading
-    
-        $html.="<table>"; //Table for more specific item attributes
-            $html.="<tr>";
-                $html.="<td>ID</td>";
-                $html.="<td>" . $item->attrs['id'] . "</td>";
-            $html.="</tr>";
-            $html.="<tr>";
-                $html.="<td>Kategorie</td>";
-                $html.="<td>" . $item->attrs['category'] . "</td>";
-            $html.="</tr>";
-            $html.="<tr>";
-                $html.="<td>Spezifikation</td>";
-                $html.="<td>" . $item->attrs['specification'] . "</td>";
-            $html.="</tr>";
-            $html.="<tr>";
-                $html.="<td>Kategoriespezifische Angabe</td>";
-                $html.="<td>" . $item->attrs['category_tags'] . "</td>";
-            $html.="</tr>";
-            $html.="<tr>";
-                $html.="<td>Einsatz/Verbindung</td>";
-                $html.="<td>" . $item->attrs['application'] . " </td>";
-            $html.="</tr>";
-            $html.="<tr>";
-                $html.="<td>Notiz</td>";
-                $html.="<td>" . $item->attrs['notes'] . "</td>";
-            $html.="</tr>";
-            $html.="<tr>";
-                $html.="<td>Kaufdatum</td>";
-                $html.="<td>" . $item->attrs['date_bought'] . "</td>";
-            $html.="</tr>";
-            $html.="<tr>";
-                $html.="<td>Kaufnotiz</td>";
-                $html.="<td>" . $item->attrs['bought_note'] . "</td>";
-            $html.="</tr>";
-            $html.="<tr>";
-                $html.="<td>Neupreis</td>";
-                $html.="<td>" . $item->attrs['price'] . "€</td>";
-            $html.="</tr>";
-            $html.="<tr>";
-                $html.="<td>Händler</td>";
-                $html.="<td>" . $item->attrs['vendor'] . "</td>";
-            $html.="</tr>";
-            $html.="<tr>";
-                $html.="<td>Artikelnummer beim Händler</td>";
-                $html.="<td>" . $item->attrs['vendor_item_id'] . "</td>";
-            $html.="</tr>";
-            $html.="<tr>";
-                $html.="<td>Insgesammt vorhandene Anzahl</td>";
-                $html.="<td>" . $item->attrs['amount'] . "</td>";
-            $html.="</tr>";
-            $html.="<tr>";
-                $html.="<td>Verfügbare Anzahl</td>";
-                $unused_amount = $item->attrs['amount'] - $amount_in_use;
-                $html.="<td>" . $unused_amount . "</td>";
-            $html.="</tr>";
-        $html.="</table>";
-        
-        $html.=$use_html;
-        
-    $html.= "</div>";
+    // Add html from the array only if user has permission
+    foreach($htmlarr as $attr => $val) {
+        if(substr($attr, 0, 1) == "_") { // A enries starting with _ are necessitated by HTML and don't have permissions
+            $html.=$val;
+        } else {
+            if($security->current_user_can("view".$attr)) {
+                $html.=$val;
+            }
+        }
+    }
     return $html;
 }
