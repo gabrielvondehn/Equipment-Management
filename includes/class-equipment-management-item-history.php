@@ -47,9 +47,11 @@ class Equipment_Management_Item_History {
         
         $table_name = $equipment_management->database->table_names['use_table'];
         
+        $worked = true;
+        
         foreach( $this->history as $entry ) {
             if( empty($entry['ID']) ) { // New history entry
-                $wpdb->insert( $table_name,
+                $result = $wpdb->insert( $table_name,
                     array(
                         'equip_id'       => $this->item_id,
                         'used_by'        => $entry['used_by'],
@@ -58,8 +60,11 @@ class Equipment_Management_Item_History {
                         'date_back'      => $entry['date_back'].' 00:00:00', // We only store date in this object, but datetime in database
                         'usage_type'     => $entry['usage_type'],
                     ));
+                if($result === false) {
+                    $worked = false;
+                }
             } else {
-                $wpdb->update( $table_name,
+                $result = $wpdb->update( $table_name,
                     array(
                         'used_by'        => $entry['used_by'],
                         'amount_used'    => $entry['amount_used'],
@@ -69,7 +74,12 @@ class Equipment_Management_Item_History {
                     ), array(
                         'ID' => $entry['ID'],
                     ));
+                if($result === false) {
+                    $worked = false;
+                }
             }
         }
+        
+        return $worked;
     }
 }
