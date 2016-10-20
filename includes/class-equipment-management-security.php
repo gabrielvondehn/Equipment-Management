@@ -38,7 +38,7 @@ class Equipment_Management_Security {
             $roles = explode(",", $roles );
             foreach( $roles as $role ) {
                 if( $role === "public" ) {
-                    array_push($this->public_caps, $cap);
+                    $this->public_caps[$cap] = "public";
                     continue;
                 }
                 $wp_role = get_role( $role );
@@ -53,7 +53,7 @@ class Equipment_Management_Security {
     
     public function current_user_can( $cap ) {
         
-        if( !empty($this->public_caps[$cap]) && $this->public_caps[$cap] === "public" ) {
+        if( isset($this->public_caps[$cap]) ) {
             return true;
         } else {
             return is_user_logged_in() && current_user_can( $cap );
