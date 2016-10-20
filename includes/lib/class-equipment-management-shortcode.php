@@ -33,12 +33,12 @@ class Equipment_Management_Shortcode {
 
 		if ( ! $shortcode || ! $callback ) return;
 
-		// Post type name and labels
+		// Shortcode type name and labels
 		$this->shortcode = $shortcode;
 		$this->callback = $callback;
 		$this->pairs = $pairs;
 
-		// Regsiter post type
+		// Regsiter shortcode type
 		add_shortcode( $shortcode , array( $this, 'run_shortcode' ) );
 	}
 
