@@ -11,8 +11,7 @@ function equipment_management_show_id_shortcode( $item ) {
     $security = $equipment_management->security;
     
     if(!$security->current_user_can("view_id")) {
-        echo "Sorry, you don't have permissions to view this page.";
-        return;
+        return "Sorry, you don't have permissions to view this page.";
     }
     
     // Doing setup work
@@ -119,7 +118,7 @@ function equipment_management_show_id_shortcode( $item ) {
         if(substr($attr, 0, 1) == "_") { // A enries starting with _ are necessitated by HTML and don't have permissions
             $html.=$val;
         } else {
-            if($security->current_user_can("view".$attr)) {
+            if($security->current_user_can("view_".$attr)) {
                 $html.=$val;
             }
         }
