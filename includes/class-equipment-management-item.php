@@ -54,7 +54,7 @@ class Equipment_Management_Item {
         }
         
         if( null == $wpdb->get_row("SELECT * FROM $table_name WHERE 'id=$id'") ) { // New entry
-            $wpdb->insert( $table_name,
+            $result = $wpdb->insert( $table_name,
                 array(
                     'id'             => $this->attrs['id'],
                     'post_id'        => $this->attrs['post_id'],
@@ -73,8 +73,11 @@ class Equipment_Management_Item {
                     'bundle'         => $this->attrs['bundle'],
                     'amount'         => $this->attrs['amount'],
                 ));
+            if($result === false) {
+                return false;
+            }
         } else {
-            $wpdb->update( $table_name,
+            $result = $wpdb->update( $table_name,
                 array(
                     'post_id'        => $this->attrs['post_id'],
                     'date_added'     => $this->attrs['date_added'],
@@ -94,9 +97,12 @@ class Equipment_Management_Item {
                 ), array(
                     'equip_id' => $this->attrs['equip_id'],
                 ));
+            if($result === false) {
+                return false;
+            }
         }
         
-        $this->attrs['use']->sync();
+        return $this->attrs['use']->sync();
     }
     
     /**
