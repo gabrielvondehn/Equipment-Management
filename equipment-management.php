@@ -1,58 +1,75 @@
 <?php
-/*
- * Plugin Name: Equipment Management
- * Version: 1.0
- * Plugin URI: https://github.com/GABRIELFILMSTUDIOS/Equipment-Management
- * Description: A plugin to manage Equipment
- * Author: Hugh Lashbrooke
- * Author URI: http://www.gabrielfilmstudios.wordpress.com/
- * Requires at least: 4.0
- * Tested up to: 4.0
- *
- * Text Domain: equipment-management
- * Domain Path: /lang/
- *
- * @package WordPress
- * @author Gabriel von Dehn
- * @since 1.0.0
- */
-
-if ( ! defined( 'ABSPATH' ) ) exit;
-
-define( 'EQUIPMENT_MANAGEMENT_VERSION', '1.0.0');
-define( 'EQUIPMENT_MANAGEMENT_DATABASE_VERSION', '1.0.4' );
-define( 'EQUIPMENT_MANAGEMENT_DATABASE_VERSION_OPTION', 'equipment-management-database-version' );
-
-// Load plugin libraries
-require_once( 'includes/lib/class-equipment-management-admin-api.php' );
-require_once( 'includes/lib/class-equipment-management-database-api.php' );
-require_once( 'includes/lib/class-equipment-management-post-type.php' );
-require_once( 'includes/lib/class-equipment-management-taxonomy.php' );
-require_once( 'includes/lib/class-equipment-management-shortcode.php' );
-
-// Load plugin class files
-require_once( 'includes/class-equipment-management.php' );
-require_once( 'includes/class-equipment-management-settings.php' );
-require_once( 'includes/class-equipment-management-database.php' );
-require_once( 'includes/class-equipment-management-security.php' );
-require_once( 'includes/class-equipment-management-item.php' );
-require_once( 'includes/class-equipment-management-item-history.php' );
-require_once( 'includes/shortcodes/class-equipment-management-shortcodes.php' );
-
 
 /**
- * Returns the main instance of Equipment_Management to prevent the need to use globals.
+ * The plugin bootstrap file
  *
- * @since  1.0.0
- * @return object Equipment_Management
+ * This file is read by WordPress to generate the plugin information in the plugin
+ * admin area. This file also includes all of the dependencies used by the plugin,
+ * registers the activation and deactivation functions, and defines a function
+ * that starts the plugin.
+ *
+ * @link              http://example.com
+ * @since             1.0.0
+ * @package           Plugin_Name
+ *
+ * @wordpress-plugin
+ * Plugin Name:       WordPress Plugin Boilerplate
+ * Plugin URI:        http://example.com/equipment-management-uri/
+ * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Version:           1.0.0
+ * Author:            Your Name or Your Company
+ * Author URI:        http://example.com/
+ * License:           GPL-2.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain:       equipment-management
+ * Domain Path:       /languages
  */
-function Equipment_Management () {
-	$instance = Equipment_Management::instance( __FILE__, EQUIPMENT_MANAGEMENT_VERSION );
-        
-        global $equipment_management;
-        $equipment_management = $instance;
-        
-	return $instance;
+
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
 }
 
-Equipment_Management();
+/**
+ * The code that runs during plugin activation.
+ * This action is documented in includes/class-equipment-management-activator.php
+ */
+function activate_equipment_management() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-equipment-management-activator.php';
+	Plugin_Name_Activator::activate();
+}
+
+/**
+ * The code that runs during plugin deactivation.
+ * This action is documented in includes/class-equipment-management-deactivator.php
+ */
+function deactivate_equipment_management() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-equipment-management-deactivator.php';
+	Plugin_Name_Deactivator::deactivate();
+}
+
+register_activation_hook( __FILE__, 'activate_equipment_management' );
+register_deactivation_hook( __FILE__, 'deactivate_equipment_management' );
+
+/**
+ * The core plugin class that is used to define internationalization,
+ * admin-specific hooks, and public-facing site hooks.
+ */
+require plugin_dir_path( __FILE__ ) . 'includes/class-equipment-management.php';
+
+/**
+ * Begins execution of the plugin.
+ *
+ * Since everything within the plugin is registered via hooks,
+ * then kicking off the plugin from this point in the file does
+ * not affect the page life cycle.
+ *
+ * @since    1.0.0
+ */
+function run_equipment_management() {
+
+	$plugin = new Plugin_Name();
+	$plugin->run();
+
+}
+run_equipment_management();
