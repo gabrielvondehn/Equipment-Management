@@ -10,7 +10,7 @@
  *
  * @link              http://example.com
  * @since             1.0.0
- * @package           Plugin_Name
+ * @package           Equipment_Management
  *
  * @wordpress-plugin
  * Plugin Name:       WordPress Plugin Boilerplate
@@ -36,7 +36,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 function activate_equipment_management() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-equipment-management-activator.php';
-	Plugin_Name_Activator::activate();
+	Equipment_Management_Activator::activate();
 }
 
 /**
@@ -45,7 +45,7 @@ function activate_equipment_management() {
  */
 function deactivate_equipment_management() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-equipment-management-deactivator.php';
-	Plugin_Name_Deactivator::deactivate();
+	Equipment_Management_Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_equipment_management' );
@@ -68,7 +68,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-equipment-management.php';
  */
 function run_equipment_management() {
 
-	$plugin = new Plugin_Name();
+	$plugin = new Equipment_Management();
 	$plugin->run();
 
 }
