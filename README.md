@@ -5,4 +5,4 @@ A Wordpress Plugin for managing DJ Equipment
 I'm using the [Plugin Boilerplate](http://wppb.io/) by [DevinVinson].
 
 ## Styleguide
-I'm following the WordPress Coding Standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/)
+I'm following the WordPress Coding Standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/), with added [namespacing](https://torquemag.io/2015/01/using-namespaces-wordpress-development/) to make names easier to read.
