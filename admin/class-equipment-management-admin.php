@@ -1,5 +1,4 @@
-<?php
-
+.<?php
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -44,8 +43,8 @@ class Equipment_Management_Admin {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @param string $plugin_name The name of this plugin.
+	 * @param string $version     The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
@@ -100,4 +99,15 @@ class Equipment_Management_Admin {
 
 	}
 
+	/**
+	 * Register admin menus
+	 *
+	 * @since 1.0.0
+	 */
+	public function register_menus() {
+
+		add_menu_page( 'Equipment', 'All Equipment', 'activate_plugins', 'equipment-list-page', function() {
+			require_once 'equipment-management-item-list-page.php';
+		}, 'dashicons-archive', 2 );
+	}
 }

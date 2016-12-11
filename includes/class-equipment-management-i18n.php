@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Define the internationalization functionality
  *
@@ -22,7 +21,7 @@
  * @since      1.0.0
  * @package    Equipment_Management
  * @subpackage Equipment_Management/includes
- * @author     Your Name <email@example.com>
+ * @author     Gabriel von Dehn <email@example.com>
  */
 class Equipment_Management_i18n {
 
