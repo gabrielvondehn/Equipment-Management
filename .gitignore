@@ -3,3 +3,6 @@
 
 # Dev tools
 /node_modules/
+
+# Wiki
+/wiki/
