@@ -46,9 +46,9 @@ class Updater {
 
 		$charset_collate = $wpdb->get_charset_collate();
 
-		$eqmn_type_table = ($wpdb->prefix).'eqmn_type';
-		$eqmn_item_table = ($wpdb->prefix).'eqmn_item';
-		$eqmn_item_meta_table = ($wpdb->prefix).'eqmn_item_meta';
+		$eqmn_type_table = ($wpdb->prefix) . 'eqmn_type';
+		$eqmn_item_table = ($wpdb->prefix) . 'eqmn_item';
+		$eqmn_item_meta_table = ($wpdb->prefix) . 'eqmn_item_meta';
 
 		$tables = "CREATE TABLE 'equipment_management'.'wp_eqmn_type' (
 'id' INT NOT NULL AUTO_INCREMENT,
