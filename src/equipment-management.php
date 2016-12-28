@@ -31,11 +31,11 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-equipment-management-activator.php
+ * This action is documented in includes/class-updater.php
  */
 function activate_equipment_management() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-equipment-management-activator.php';
-	Equipment_Management_Activator::activate();
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-updater.php';
+	\Equipment_Management\includes\Updater::update();
 }
 
 /**

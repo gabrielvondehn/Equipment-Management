@@ -61,7 +61,7 @@ class Item {
 			'type' => '',
 		));
 
-		$this->_type = convert_to_item_type( $args['type'] );
+		$this->item_type = convert_to_item_type( $args['type'] );
 
 		$this->_args = $args;
 	}
