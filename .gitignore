@@ -1,2 +1,8 @@
-/node_modules/
+# OS Files
 .DS_Store
+
+# Dev tools
+/node_modules/
+
+# Wiki
+/wiki/
